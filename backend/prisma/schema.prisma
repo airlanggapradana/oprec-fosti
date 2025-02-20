@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Recruitment {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  nama       String
+  email      String @unique
+  nim        String @unique
+  no_telepon String
+  gender     Gender
+  alamat     String
+  motivasi   String
+  fakultas   String
+  prodi      Prodi
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Prodi {
+  SISTEM_INFORMASI
+  TEKNIK_INFORMATIKA
+  ILMU_KOMUNIKASI
+}
+
+enum Gender {
+  LAKI_LAKI
+  PEREMPUAN
+}
