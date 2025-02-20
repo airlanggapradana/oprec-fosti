@@ -3,6 +3,7 @@ import Divisi from "@/components/Divisi";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
+import SubmissionFlow from "@/components/SubmissionFlow";
 import Timeline from "@/components/Timeline";
 
 export default function HomePage() {
@@ -14,11 +15,12 @@ export default function HomePage() {
         <div className="absolute bottom-0 left-0 h-[500px] w-[500px] bg-purple-500/10 blur-[100px]" />
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-30">
         <Navbar />
         <Hero />
         <Divisi />
         <Timeline />
+        <SubmissionFlow />
         <CTA />
         <Footer />
       </div>
