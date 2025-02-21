@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "../../public/logo.png";
 import { ThemeToggle } from "./ThemeToggle";
+import DaftarBtn from "./DaftarBtn";
 
 const navigations = [
   { name: "Home", href: "#home" },
@@ -14,7 +15,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-20 max-w-screen-2xl items-center justify-between">
-        <Link href="#home">
+        <Link href="/">
           <Image
             alt="logo"
             src={logo}
@@ -34,7 +35,7 @@ export default function Navbar() {
             </Link>
           ))}
           <ThemeToggle />
-          <Button size="sm">Daftar</Button>
+          <DaftarBtn text="Daftar" size={"sm"} />
         </div>
       </div>
     </header>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "./ui/button";
+import DaftarBtn from "./DaftarBtn";
 
 const CTA = () => {
   return (
@@ -11,9 +12,7 @@ const CTA = () => {
         <p className="mx-auto mb-8 max-w-2xl text-xl text-muted-foreground">
           Mari kita mulai semua pengalaman baru bersama FOSTI UMS!
         </p>
-        <Button size="lg" variant="secondary">
-          Daftar Sekarang
-        </Button>
+        <DaftarBtn text="Daftar Sekarang" size={"lg"} variant={"secondary"} />
       </div>
     </section>
   );

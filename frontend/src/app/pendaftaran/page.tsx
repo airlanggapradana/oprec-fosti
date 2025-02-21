@@ -1,3 +1,4 @@
+import FormPendaftaran from "@/components/FormPendaftaran";
 import React from "react";
 
 export default function PendaftaranPage() {
@@ -8,9 +9,10 @@ export default function PendaftaranPage() {
         <div className="absolute right-0 top-0 h-[500px] w-[500px] bg-blue-500/10 blur-[100px]" />
         <div className="absolute bottom-0 left-0 h-[500px] w-[500px] bg-purple-500/10 blur-[100px]" />
       </div>
-
       <div className="relative z-30">
-        <div>form pendaftaran</div>
+        <section className="container mx-auto flex min-h-[calc(100vh-3.5rem)] max-w-screen-2xl flex-col items-center justify-center space-y-8 py-24 text-center md:py-32">
+          <FormPendaftaran />
+        </section>
       </div>
     </div>
   );
