@@ -2,7 +2,6 @@ import CTA from "@/components/CTA";
 import Divisi from "@/components/Divisi";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import Navbar from "@/components/Navbar";
 import SubmissionFlow from "@/components/SubmissionFlow";
 import Timeline from "@/components/Timeline";
 
@@ -16,7 +15,6 @@ export default function HomePage() {
       </div>
 
       <div className="relative z-30">
-        <Navbar />
         <Hero />
         <Divisi />
         <Timeline />

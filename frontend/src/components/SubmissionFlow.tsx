@@ -9,7 +9,10 @@ import HeroVideoDialog from "./magicui/hero-video-dialog";
 
 const SubmissionFlow = () => {
   return (
-    <section className="container mx-auto space-y-16 py-24 md:py-32">
+    <section
+      id="tutorial"
+      className="container mx-auto space-y-16 py-24 md:py-32"
+    >
       <h1 className="mb-12 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-center text-3xl font-bold tracking-tighter text-transparent dark:bg-gradient-to-t dark:from-slate-300 dark:to-slate-100 sm:text-4xl md:text-5xl">
         Tata Cara Pendaftaran
       </h1>

@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "./utils/theme-provider";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Oprec Fosti 2025",
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground antialiased">
         <ThemeProvider attribute={"class"} defaultTheme="dark" enableSystem>
           <MouseMoveEffect />
+          <Navbar />
           {children}
         </ThemeProvider>
       </body>
