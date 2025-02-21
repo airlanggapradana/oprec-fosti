@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { env } from "@/env";
 import { CreateRecordResponse } from "@/types/api.response";
 import { RecruitmentSchema } from "@/zod/validation.schema";
@@ -21,8 +21,12 @@ export const createRecord = async (payload: RecruitmentSchema) => {
       error: null,
     };
   } catch (error) {
-    if (error instanceof axios.AxiosError) {
-      return { status: error.status, result: null, error: error.message };
+    if (error instanceof AxiosError) {
+      return {
+        status: error.response?.status || 500,
+        result: null,
+        error: error.response?.data.message,
+      };
     }
     return { status: 500, result: null, error: "Internal Server Error" };
   }

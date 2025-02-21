@@ -34,8 +34,10 @@ import { recruitmentSchema, RecruitmentSchema } from "@/zod/validation.schema";
 import { useMutation } from "@tanstack/react-query";
 import { createRecord } from "@/utils/api";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const FormPendaftaran = () => {
+  const router = useRouter();
   const form = useForm<RecruitmentSchema>({
     resolver: zodResolver(recruitmentSchema),
     defaultValues: {
@@ -53,11 +55,26 @@ const FormPendaftaran = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (data: RecruitmentSchema) => {
-      return await createRecord(data);
+      const response = await createRecord(data);
+      if (response.status === 201) {
+        return response;
+      } else {
+        throw new Error(response.error as string);
+      }
     },
     onSuccess: () => {
       form.reset();
       toast.success("Pendaftaran berhasil!");
+      router.push("/pendaftaran/success");
+    },
+    onError: (error) => {
+      toast.error(`Pendaftaran gagal : ${error.message}`);
+      form.setError("nim", { message: error.message }, { shouldFocus: true });
+      form.setError(
+        "email",
+        { message: error.message },
+        { shouldFocus: false },
+      );
     },
   });
 
