@@ -31,6 +31,9 @@ import { Button } from "./ui/button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { recruitmentSchema, RecruitmentSchema } from "@/zod/validation.schema";
+import { useMutation } from "@tanstack/react-query";
+import { createRecord } from "@/utils/api";
+import { toast } from "sonner";
 
 const FormPendaftaran = () => {
   const form = useForm<RecruitmentSchema>({
@@ -48,10 +51,19 @@ const FormPendaftaran = () => {
     },
   });
 
+  const { mutateAsync } = useMutation({
+    mutationFn: async (data: RecruitmentSchema) => {
+      return await createRecord(data);
+    },
+    onSuccess: () => {
+      form.reset();
+      toast.success("Pendaftaran berhasil!");
+    },
+  });
+
   const onSubmit: SubmitHandler<RecruitmentSchema> = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
-    form.reset();
+    await mutateAsync(data);
   };
   return (
     <Card className="mx-auto w-full max-w-2xl">

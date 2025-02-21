@@ -4,6 +4,8 @@ import { ThemeProvider } from "./utils/theme-provider";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import ReactQueryProvider from "@/lib/ReactQuery";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Oprec Fosti 2025",
@@ -21,11 +23,14 @@ export default function RootLayout({
       className={`${GeistSans.variable} scroll-smooth`}
     >
       <body className="bg-background text-foreground antialiased">
-        <ThemeProvider attribute={"class"} defaultTheme="dark" enableSystem>
-          <MouseMoveEffect />
-          <Navbar />
-          {children}
-        </ThemeProvider>
+        <ReactQueryProvider>
+          <ThemeProvider attribute={"class"} defaultTheme="dark" enableSystem>
+            <MouseMoveEffect />
+            <Navbar />
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
