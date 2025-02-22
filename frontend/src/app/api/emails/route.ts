@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   const payload: { email: string; nama: string } = await req.json();
   try {
     const { data, error } = await resend.emails.send({
-      from: "fostiums.org",
+      from: "OprecFosti <oprec.fostiums@resend.dev>",
       to: payload.email,
       subject: "Yeayy! Selamat kamu udah berhasil daftar di Fosti!",
       react: Welcome({ nama: payload.nama, email: payload.email }),
