@@ -32,7 +32,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { recruitmentSchema, RecruitmentSchema } from "@/zod/validation.schema";
 import { useMutation } from "@tanstack/react-query";
-import { createRecord } from "@/utils/api";
+import { createRecord, sendEmail } from "@/utils/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -62,9 +62,13 @@ const FormPendaftaran = () => {
         throw new Error(response.error as string);
       }
     },
-    onSuccess: () => {
-      form.reset();
+    onSuccess: async () => {
       toast.success("Pendaftaran berhasil!");
+      await sendEmail({
+        email: form.getValues("email"),
+        nama: form.getValues("nama"),
+      });
+      form.reset();
       router.push("/pendaftaran/success");
     },
     onError: (error) => {

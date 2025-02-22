@@ -31,3 +31,25 @@ export const createRecord = async (payload: RecruitmentSchema) => {
     return { status: 500, result: null, error: "Internal Server Error" };
   }
 };
+
+export const sendEmail = async (payload: { email: string; nama: string }) => {
+  try {
+    const response = await axios.post(`/api/emails`, payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return {
+      status: response.status,
+      result: response.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      result: null,
+      error: "Internal Server Error",
+    };
+  }
+};
