@@ -63,9 +63,9 @@ export const sendEmail = async (payload: { email: string; nama: string }) => {
     const response = await axios.post(
       "https://api.emailjs.com/api/v1.0/email/send",
       {
-        service_id: "service_63d62ni",
-        template_id: "template_7vbmtpp",
-        user_id: "nr7zXwODAaCASokJ7",
+        service_id: env.NEXT_PUBLIC_SERVICE_ID,
+        template_id: env.NEXT_PUBLIC_TEMPLATE_ID,
+        user_id: env.NEXT_PUBLIC_USER_ID,
         template_params: {
           nama: payload.nama,
           email: payload.email,
