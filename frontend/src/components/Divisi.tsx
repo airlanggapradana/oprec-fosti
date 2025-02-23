@@ -36,11 +36,11 @@ const Divisi = () => {
         >
           Divisi Yang Ada di FOSTI
         </TypingAnimation>
-        <p className="mt-4 text-muted-foreground sm:text-lg">
+        <p className="mt-4 text-sm text-muted-foreground sm:text-lg">
           Kepoin divisi-divisi keren yang ada di FOSTI yuk!
         </p>
       </div>
-      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8">
+      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8 px-5 md:px-0">
         {divisi.map((tim) => (
           <ShineBorder
             color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
@@ -48,14 +48,16 @@ const Divisi = () => {
             className="w-full"
             duration={10}
           >
-            <CardContent className="flex w-full flex-col gap-4 p-6">
+            <CardContent className="flex w-full flex-col gap-2 p-6 md:gap-4">
               <div className="flex items-center gap-4">
                 <div className="rounded-lg">
-                  <tim.icon className="h-8 w-8" />
+                  <tim.icon className="h-6 w-6 md:h-8 md:w-8" />
                 </div>
-                <h3 className="font-bold">{tim.name}</h3>
+                <h3 className="text-base font-bold md:text-lg">{tim.name}</h3>
               </div>
-              <p className="text-muted-foreground">{tim.description}</p>
+              <p className="text-sm text-muted-foreground md:text-base">
+                {tim.description}
+              </p>
             </CardContent>
           </ShineBorder>
         ))}

@@ -16,16 +16,16 @@ const SubmissionFlow = () => {
       <h1 className="mb-12 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-center text-3xl font-bold tracking-tighter text-transparent dark:bg-gradient-to-t dark:from-slate-300 dark:to-slate-100 sm:text-4xl md:text-5xl">
         Tata Cara Pendaftaran
       </h1>
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-14 flex items-start gap-9">
+      <div className="mx-auto max-w-6xl px-5 md:px-0">
+        <div className="mb-14 flex flex-col items-start gap-6 md:flex-row md:gap-9">
           <TerminalCard />
           <Typing
             as={"p"}
             duration={20}
-            className="text-lg font-medium leading-relaxed tracking-tight text-muted-foreground"
+            className="text-center text-lg font-medium leading-relaxed tracking-tight text-muted-foreground md:text-start"
           >
-            Disamping merupakan tata cara pendaftaran yang dapat kamu lakukan
-            jika tertarik bergabung dengan FOSTI. Jika kamu mengalami kesulitan,
+            Merupakan tata cara pendaftaran yang dapat kamu lakukan jika
+            tertarik bergabung dengan FOSTI. Jika kamu mengalami kesulitan,
             jangan ragu untuk menghubungi kami melalui kontak yang tersedia yaa
             ❤️.
           </Typing>

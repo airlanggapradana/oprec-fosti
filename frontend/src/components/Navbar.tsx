@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "../../public/logo.png";
 import { ThemeToggle } from "./ThemeToggle";
@@ -14,7 +13,7 @@ const navigations = [
 export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-20 max-w-screen-2xl items-center justify-between">
+      <div className="container mx-auto flex h-20 max-w-screen-2xl items-center justify-between px-5">
         <Link href="/">
           <Image
             alt="logo"
@@ -24,7 +23,7 @@ export default function Navbar() {
             className="dark:invert"
           />
         </Link>
-        <div className="flex items-center gap-7">
+        <div className="hidden items-center gap-7 md:flex">
           {navigations.map((nav, index) => (
             <Link
               key={index}
@@ -34,6 +33,10 @@ export default function Navbar() {
               {nav.name}
             </Link>
           ))}
+          <ThemeToggle />
+          <DaftarBtn text="Daftar" size={"sm"} />
+        </div>
+        <div className="flex items-center gap-3 md:hidden">
           <ThemeToggle />
           <DaftarBtn text="Daftar" size={"sm"} />
         </div>

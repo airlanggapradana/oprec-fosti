@@ -47,8 +47,8 @@ const Timeline = () => {
       <h2 className="mb-12 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-center text-3xl font-bold tracking-tighter text-transparent dark:bg-gradient-to-t dark:from-slate-300 dark:to-slate-100 sm:text-4xl md:text-5xl">
         Recruitment Timeline
       </h2>
-      <div className="mx-auto max-w-3xl">
-        <div className="relative">
+      <div className="mx-auto max-w-3xl px-5 md:px-0">
+        <div className="relative px-5">
           <div className="absolute left-1/2 h-full w-1 -translate-x-1/2 transform bg-gradient-to-b from-purple-400 to-pink-400 dark:bg-gradient-to-b dark:from-slate-300 dark:to-slate-100"></div>
           <div className="space-y-12">
             {timelines.map((item, index) => (
@@ -106,15 +106,15 @@ function TimelineItem({
   return (
     <div
       ref={itemRef}
-      className={`relative flex ${isLeft ? "justify-start" : "justify-end"} items-center`}
+      className={`relative flex flex-col md:flex-row ${isLeft ? "md:justify-start" : "md:justify-end"} mb-8 items-start md:items-center`}
     >
       <div
-        className={`absolute left-1/2 h-12 w-12 -translate-x-1/2 transform rounded-full bg-gradient-to-br ${gradient} z-10 flex items-center justify-center shadow-lg transition-all duration-500 ${isVisible ? "scale-100 opacity-100" : "scale-50 opacity-0"}`}
+        className={`absolute left-0 top-0 -ml-6 h-12 w-12 rounded-full bg-gradient-to-br md:left-1/2 md:ml-0 ${gradient} z-10 flex items-center justify-center shadow-lg transition-all duration-500 ${isVisible ? "scale-100 opacity-100" : "scale-50 opacity-0"} transform md:-translate-x-1/2`}
       >
         {icon}
       </div>
       <Card
-        className={`w-5/12 ${isLeft ? "mr-8" : "ml-8"} bg-white/80 backdrop-blur-md transition-all duration-500 hover:shadow-lg dark:bg-gray-800/80 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+        className={`ml-12 w-full md:ml-0 md:w-5/12 ${isLeft ? "md:mr-8" : "md:ml-8"} bg-white/80 backdrop-blur-md transition-all duration-500 hover:shadow-lg dark:bg-gray-800/80 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
       >
         <CardHeader>
           <CardTitle className="text-purple-700 dark:text-purple-400">
