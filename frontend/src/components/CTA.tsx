@@ -1,10 +1,9 @@
 import React from "react";
-import { Button } from "./ui/button";
 import DaftarBtn from "./DaftarBtn";
 
 const CTA = () => {
   return (
-    <section className="py-20">
+    <section className="px-5 py-20 md:px-0">
       <div className="container mx-auto text-center">
         <h1 className="mb-6 text-4xl font-bold text-slate-700 dark:text-white">
           Sudah siap untuk memulainya?

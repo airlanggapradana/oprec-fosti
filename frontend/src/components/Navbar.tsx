@@ -3,6 +3,15 @@ import Image from "next/image";
 import logo from "../../public/logo.png";
 import { ThemeToggle } from "./ThemeToggle";
 import DaftarBtn from "./DaftarBtn";
+import { MenuSquare } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 
 const navigations = [
   { name: "Home", href: "#home" },
@@ -39,6 +48,35 @@ export default function Navbar() {
         <div className="flex items-center gap-3 md:hidden">
           <ThemeToggle />
           <DaftarBtn text="Daftar" size={"sm"} />
+          <Sheet>
+            <SheetTrigger>
+              <MenuSquare size={35} />
+            </SheetTrigger>
+            <SheetContent className="w-3/4">
+              <SheetHeader className="mt-5 border-b-2 pb-3">
+                <SheetTitle>
+                  <Image
+                    alt="logo"
+                    src={logo}
+                    width={100}
+                    height={100}
+                    className="dark:invert"
+                  />
+                </SheetTitle>
+              </SheetHeader>
+              <SheetDescription className="mt-5 flex flex-col gap-12">
+                {navigations.map((nav, index) => (
+                  <Link
+                    key={index}
+                    href={nav.href}
+                    className="w-full rounded-md border-r-4 p-3 text-lg font-bold transition-colors hover:text-primary"
+                  >
+                    {nav.name}
+                  </Link>
+                ))}
+              </SheetDescription>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>

@@ -114,7 +114,7 @@ function TimelineItem({
         {icon}
       </div>
       <Card
-        className={`ml-12 w-full md:ml-0 md:w-5/12 ${isLeft ? "md:mr-8" : "md:ml-8"} bg-white/80 backdrop-blur-md transition-all duration-500 hover:shadow-lg dark:bg-gray-800/80 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+        className={`ml-12 w-[90%] md:ml-0 md:w-5/12 ${isLeft ? "md:mr-8" : "md:ml-8"} bg-white/80 backdrop-blur-md transition-all duration-500 hover:shadow-lg dark:bg-gray-800/80 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
       >
         <CardHeader>
           <CardTitle className="text-purple-700 dark:text-purple-400">
