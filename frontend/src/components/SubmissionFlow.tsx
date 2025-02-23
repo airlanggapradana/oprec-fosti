@@ -36,15 +36,15 @@ const SubmissionFlow = () => {
           <HeroVideoDialog
             className="block dark:hidden"
             animationStyle="from-center"
-            videoSrc="https://www.youtube.com/embed/Mh4lx5Yl3bs?si=WwUhdpvlT8jRCr4h"
-            thumbnailSrc="https://startup-template-sage.vercel.app/hero-light.png"
+            videoSrc="https://player.vimeo.com/video/1059440066?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+            thumbnailSrc="https://i.postimg.cc/Twdc9GxX/thumb.jpg"
             thumbnailAlt="Hero Video"
           />
           <HeroVideoDialog
             className="hidden dark:block"
             animationStyle="from-center"
-            videoSrc="https://www.youtube.com/embed/Mh4lx5Yl3bs?si=WwUhdpvlT8jRCr4h"
-            thumbnailSrc="https://startup-template-sage.vercel.app/hero-dark.png"
+            videoSrc="https://player.vimeo.com/video/1059440066?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+            thumbnailSrc="https://i.postimg.cc/Twdc9GxX/thumb.jpg"
             thumbnailAlt="Hero Video"
           />
         </div>
