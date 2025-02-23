@@ -14,14 +14,14 @@ const config = {
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/consistent-type-imports": [
-      "warn",
+      "off",
       {
         prefer: "type-imports",
         fixStyle: "inline-type-imports",
       },
     ],
     "@typescript-eslint/no-unused-vars": [
-      "warn",
+      "off",
       {
         argsIgnorePattern: "^_",
       },
@@ -47,6 +47,8 @@ const config = {
     ],
     "@typescript-eslint/no-unused-expressions": "off",
     "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
   },
 };
 module.exports = config;
