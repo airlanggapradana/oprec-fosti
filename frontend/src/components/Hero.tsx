@@ -1,9 +1,12 @@
+"use client";
 import React from "react";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { TextAnimate } from "./magicui/text-animate";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
+  const router = useRouter();
   return (
     <section className="container mx-auto flex min-h-[calc(100vh-3.5rem)] max-w-screen-2xl flex-col items-center justify-center space-y-8 px-7 py-24 text-center md:py-32">
       <div className="space-y-4">
@@ -12,7 +15,7 @@ const Hero = () => {
           duration={2}
           animation="slideUp"
           by="word"
-          className="text-4xl font-bold tracking-tight text-slate-700 dark:text-white sm:text-5xl md:text-6xl lg:text-7xl"
+          className="text-4xl font-bold leading-relaxed tracking-tight text-slate-700 dark:text-white sm:text-5xl md:text-6xl md:leading-normal lg:text-7xl"
         >
           Level Up Kreativitasmu Bersama Forum Open Source Teknik Informatika
         </TextAnimate>
@@ -29,11 +32,15 @@ const Hero = () => {
         </TextAnimate>
       </div>
       <div className="flex items-center gap-4 px-9 md:px-0">
-        <Button size={"lg"}>
+        <Button size={"lg"} onClick={() => router.push("/pendaftaran")}>
           Gabung Sekarang
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
-        <Button variant="outline" size="lg">
+        <Button
+          variant="outline"
+          size="lg"
+          onClick={() => router.replace("#tutorial")}
+        >
           Lihat Video Tutorial
         </Button>
       </div>

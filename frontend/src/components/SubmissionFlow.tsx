@@ -21,6 +21,7 @@ const SubmissionFlow = () => {
           <TerminalCard />
           <Typing
             as={"p"}
+            startOnView
             duration={20}
             className="text-center text-lg font-medium leading-relaxed tracking-tight text-muted-foreground md:text-start"
           >
