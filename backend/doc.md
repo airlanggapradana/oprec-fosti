@@ -54,3 +54,48 @@ Response (Failed) :
   }
 }
 ```
+
+## SignIn
+
+Endpoint : **POST** /api/auth/signin
+
+Request Body :
+
+```json
+{
+  "username": "adminadmin",
+  "password": "admin123"
+}
+```
+
+Response (Success) :
+
+```json
+{
+  "message": "Success",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJiY2FhOTFkLTM3YjAtNGNiNS05YmE1LTliMWZjZjIyMjk4NCIsInVzZXJuYW1lIjoiYWRtaW5hZG1pbiIsImlhdCI6MTc0MDM5MTUwMiwiZXhwIjoxNzQwNDc3OTAyfQ.C9H3ozZWFCC9l5dhdMHz8VOb-ZOMuoApWAkrDo6CdAE"
+}
+```
+
+Response (Failed) :
+
+```json
+{
+  "message": [
+    {
+      "code": "invalid_type",
+      "expected": "string",
+      "received": "undefined",
+      "path": ["username"],
+      "message": "Required"
+    },
+    {
+      "code": "invalid_type",
+      "expected": "string",
+      "received": "undefined",
+      "path": ["password"],
+      "message": "Required"
+    }
+  ]
+}
+```

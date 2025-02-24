@@ -40,3 +40,50 @@ export const createRecruitment = async (req: Request, res: Response) => {
     }
   }
 };
+
+export const getAllRecruitment = async (req: Request, res: Response) => {
+  const { prodi, nama } = req.query;
+  try {
+    const allRecruitment = await prisma.recruitment.findMany();
+    if (nama) {
+      const recruitmentByName = allRecruitment.filter(
+        (recruitment) => recruitment.nama === nama
+      );
+      if (recruitmentByName.length === 0) {
+        res.status(404).json({ message: "Data recruitment tidak ditemukan" });
+        return;
+      }
+      res.status(200).json({
+        message: "Data recruitment berhasil ditemukan",
+        data: recruitmentByName,
+      });
+      return;
+    }
+    if (prodi) {
+      const recruitmentByProdi = allRecruitment.filter(
+        (recruitment) => recruitment.prodi === prodi
+      );
+      if (recruitmentByProdi.length === 0) {
+        res.status(404).json({ message: "Data recruitment tidak ditemukan" });
+        return;
+      }
+      res.status(200).json({
+        message: "Data recruitment berhasil ditemukan",
+        data: recruitmentByProdi,
+      });
+      return;
+    }
+    if (allRecruitment.length === 0) {
+      res.status(404).json({ message: "Data recruitment masih kosong" });
+      return;
+    }
+    res.status(200).json({
+      message: "Data recruitment berhasil ditemukan",
+      data: allRecruitment,
+    });
+    return;
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+    return;
+  }
+};
