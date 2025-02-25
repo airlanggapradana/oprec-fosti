@@ -27,8 +27,10 @@ import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/utils/api";
 import { setCookie } from "@/utils/cookies";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -43,6 +45,7 @@ const LoginForm = () => {
       const response = await login(data);
       if (response.status === 200) {
         await setCookie("token", response.result?.token as string);
+        router.push("/admin/dashboard");
       } else {
         throw new Error(response.error);
       }

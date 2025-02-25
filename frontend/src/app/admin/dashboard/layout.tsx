@@ -14,5 +14,11 @@ export default async function DashboardLayout({
   const verifyToken = validateTokenExpiration(cookie);
   if (!verifyToken.valid) return redirect("/admin");
 
-  return <div>{children}</div>;
+  return (
+    <main className="flex min-h-screen items-start">
+      <div className="relative z-30 w-full">
+        <div className="container mx-auto px-5">{children}</div>
+      </div>
+    </main>
+  );
 }
