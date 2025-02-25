@@ -99,3 +99,25 @@ Response (Failed) :
   ]
 }
 ```
+
+## Delete Record
+
+Endpoint : **DELETE** api/recruitment
+
+Authorization : Bearer Token
+
+Response (Success)
+
+```json
+{
+  "message": "Data recruitment berhasil dihapus"
+}
+```
+
+Response (Failed)
+
+```json
+{
+  "message": "Unathorized"
+}
+```

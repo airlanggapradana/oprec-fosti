@@ -87,3 +87,25 @@ export const getAllRecruitment = async (req: Request, res: Response) => {
     return;
   }
 };
+
+export const deleteRecruitment = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const recruitment = await prisma.recruitment.findUnique({
+      where: { id },
+    });
+    if (!recruitment) {
+      res.status(404).json({ message: "Data recruitment tidak ditemukan" });
+      return;
+    }
+
+    await prisma.recruitment.delete({
+      where: { id },
+    });
+    res.status(200).json({ message: "Data recruitment berhasil dihapus" });
+    return;
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+    return;
+  }
+};
