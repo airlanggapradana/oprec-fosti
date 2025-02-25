@@ -17,7 +17,7 @@ export default async function DashboardLayout({
   return (
     <main className="flex min-h-screen items-start">
       <div className="relative z-30 w-full">
-        <div className="container mx-auto px-5">{children}</div>
+        <div className="container mx-auto px-5 py-12">{children}</div>
       </div>
     </main>
   );
