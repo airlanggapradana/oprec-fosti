@@ -15,3 +15,8 @@ export type CreateRecordResponse = {
     updatedAt: string;
   };
 };
+
+export type LoginResponse = {
+  message: string;
+  token: string;
+};
