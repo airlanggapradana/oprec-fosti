@@ -20,7 +20,7 @@ export default function RootLayout({
     <html
       suppressHydrationWarning
       lang="en"
-      className={`${GeistSans.variable} scroll-smooth`}
+      className={`${GeistSans.variable}`}
     >
       <body className="bg-background text-foreground antialiased">
         <ReactQueryProvider>
