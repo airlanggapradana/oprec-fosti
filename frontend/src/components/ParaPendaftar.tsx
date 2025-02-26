@@ -8,17 +8,31 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useQuery } from "@tanstack/react-query";
-import { getRecords } from "@/utils/api";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { deleteRecord, getRecords } from "@/utils/api";
 import { getCookie } from "@/utils/cookies";
+import { Button } from "./ui/button";
+import { Trash2Icon } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ParaPendaftar = () => {
+  const queryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery({
     queryFn: async () => {
       const token = await getCookie("token");
       return getRecords(token as string);
     },
     queryKey: ["records"],
+  });
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (id: string) => {
+      const token = await getCookie("token");
+      return deleteRecord(id, token as string);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["records"] });
+    },
   });
 
   if (isLoading) return <div>Loading...</div>;
@@ -36,6 +50,7 @@ const ParaPendaftar = () => {
           <TableHead>NIM</TableHead>
           <TableHead>Fakultas</TableHead>
           <TableHead>Prodi</TableHead>
+          <TableHead>Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -48,6 +63,15 @@ const ParaPendaftar = () => {
               <TableCell>{item.nim}</TableCell>
               <TableCell>{item.fakultas}</TableCell>
               <TableCell>{item.prodi}</TableCell>
+              <TableCell>
+                <Button
+                  variant={"destructive"}
+                  onClick={() => mutateAsync(item.id)}
+                  disabled={isPending}
+                >
+                  <Trash2Icon />
+                </Button>
+              </TableCell>
             </TableRow>
           ))
         ) : (

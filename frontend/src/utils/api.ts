@@ -152,3 +152,31 @@ export const getRecords = async (token: string) => {
     return { status: 500, result: null, error: "Internal Server Error" };
   }
 };
+
+export const deleteRecord = async (id: string, token: string) => {
+  try {
+    const response = await axios.delete(
+      `${env.NEXT_PUBLIC_BASE_API}/api/recruitment/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return {
+      status: response.status,
+      result: response.data.message,
+      error: null,
+    };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return {
+        status: error.response?.status || 500,
+        result: null,
+        error: error.response?.data.message,
+      };
+    }
+    return { status: 500, result: null, error: "Internal Server Error" };
+  }
+};
