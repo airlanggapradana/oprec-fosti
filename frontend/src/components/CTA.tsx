@@ -1,7 +1,11 @@
+"use client";
 import React from "react";
-import DaftarBtn from "./DaftarBtn";
+import { useRouter } from "next/navigation";
+import { ShinyButton } from "./magicui/shiny-button";
 
 const CTA = () => {
+  const router = useRouter();
+
   return (
     <section className="px-5 py-20 md:px-0">
       <div className="container mx-auto text-center">
@@ -11,7 +15,9 @@ const CTA = () => {
         <p className="mx-auto mb-8 max-w-2xl text-xl text-muted-foreground">
           Mari kita mulai semua pengalaman baru bersama FOSTI UMS!
         </p>
-        <DaftarBtn text="Daftar Sekarang" size={"lg"} variant={"secondary"} />
+        <ShinyButton onClick={() => router.push("/pendaftaran")}>
+          Daftar Sekarang 🚀  
+        </ShinyButton>
       </div>
     </section>
   );
