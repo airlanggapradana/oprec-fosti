@@ -9,7 +9,7 @@ export const signIn = async (req: Request, res: Response) => {
     const { username, password }: AuthSchema = authSchema.parse(req.body);
 
     // Check if username and password is correct
-    if (username === env.USERNAME && password === env.PASSWORD) {
+    if (username === env.ADMIN_USERNAME && password === env.ADMIN_PASSWORD) {
       const token = jwt.sign(
         {
           id: crypto.randomUUID(),

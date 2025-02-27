@@ -55,6 +55,10 @@ Response (Failed) :
 }
 ```
 
+Endpoint : **GET** api/recruitment
+
+Search Query : {?nama} && {?prodi}
+
 ## SignIn
 
 Endpoint : **POST** /api/auth/signin

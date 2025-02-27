@@ -46,25 +46,44 @@ export const getAllRecruitment = async (req: Request, res: Response) => {
   try {
     const allRecruitment = await prisma.recruitment.findMany();
     if (nama) {
-      const recruitmentByName = allRecruitment.filter(
-        (recruitment) => recruitment.nama === nama
-      );
+      const namaLowerCase = (nama as string).toLowerCase();
+      const recruitmentByName = await prisma.recruitment.findMany({
+        where: {
+          nama: {
+            contains: namaLowerCase,
+            mode: "insensitive",
+          },
+        },
+      });
       if (recruitmentByName.length === 0) {
-        res.status(404).json({ message: "Data recruitment tidak ditemukan" });
+        res
+          .status(404)
+          .json({
+            message: `Data untuk pencarian ${namaLowerCase} tidak ditemukan`,
+          });
         return;
       }
       res.status(200).json({
-        message: "Data recruitment berhasil ditemukan",
+        message: `Data search ${namaLowerCase} berhasil ditemukan`,
         data: recruitmentByName,
       });
       return;
     }
     if (prodi) {
-      const recruitmentByProdi = allRecruitment.filter(
-        (recruitment) => recruitment.prodi === prodi
-      );
+      const recruitmentByProdi = await prisma.recruitment.findMany({
+        where: {
+          prodi: {
+            equals: prodi as
+              | "TEKNIK_INFORMATIKA"
+              | "SISTEM_INFORMASI"
+              | "ILMU_KOMUNIKASI",
+          },
+        },
+      });
       if (recruitmentByProdi.length === 0) {
-        res.status(404).json({ message: "Data recruitment tidak ditemukan" });
+        res
+          .status(404)
+          .json({ message: `Data recruitment untuk ${prodi} tidak ditemukan` });
         return;
       }
       res.status(200).json({
@@ -127,12 +146,10 @@ export const updateRecruitment = async (req: Request, res: Response) => {
       where: { id },
       data: records,
     });
-    res
-      .status(200)
-      .json({
-        message: "Data recruitment berhasil diupdate",
-        data: updatedRec,
-      });
+    res.status(200).json({
+      message: "Data recruitment berhasil diupdate",
+      data: updatedRec,
+    });
     return;
   } catch (error) {
     if (error instanceof ZodError) {
