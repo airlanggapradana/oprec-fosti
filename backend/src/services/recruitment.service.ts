@@ -4,7 +4,7 @@ import {
   RecruitmentSchema,
   recruitmentSchema,
 } from "../zod/recruitment.schema";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 
 export const createRecruitment = async (req: Request, res: Response) => {
   try {
@@ -105,6 +105,42 @@ export const deleteRecruitment = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Data recruitment berhasil dihapus" });
     return;
   } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+    return;
+  }
+};
+
+export const updateRecruitment = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const records: RecruitmentSchema = recruitmentSchema.parse(req.body);
+
+    const recruitment = await prisma.recruitment.findUnique({
+      where: { id },
+    });
+    if (!recruitment) {
+      res.status(404).json({ message: "Data recruitment tidak ditemukan" });
+      return;
+    }
+
+    const updatedRec = await prisma.recruitment.update({
+      where: { id },
+      data: records,
+    });
+    res
+      .status(200)
+      .json({
+        message: "Data recruitment berhasil diupdate",
+        data: updatedRec,
+      });
+    return;
+  } catch (error) {
+    if (error instanceof ZodError) {
+      res
+        .status(400)
+        .json({ message: "Validation failed", errors: error.errors });
+      return;
+    }
     res.status(500).json({ message: "Internal server error" });
     return;
   }

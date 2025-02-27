@@ -121,3 +121,42 @@ Response (Failed)
   "message": "Unathorized"
 }
 ```
+
+## Update Record
+
+Endpoint : **PUT** /api/recruitment/{:id}
+
+Request Body :
+
+```json
+{
+  "nama": "guest1",
+  "nim": "LXXXXXXXXX",
+  "email": "guest1@test.com",
+  "no_telepon": "0812XXXXXX",
+  "gender": "LAKI_LAKI" | "PEREMPUAN",
+  "alamat": "district x",
+  "motivasi": "apapun yg terjadi tetaplah bernapas",
+  "fakultas": "FAKULTAS KOMUNIKASI DAN INFORMATIKA",
+  "prodi": "SISTEM_INFORMASI" | "TEKNIK_INFORMATIKA" | "ILMU_KOMUNIKASI",
+}
+```
+
+Response (Success) :
+
+```json
+{
+  "message": "Data recruitment berhasil diupdate",
+  "data": {
+      "nama": "guest1",
+      "nim": "LXXXXXXXXX",
+      "email": "guest1@test.com",
+      "no_telepon": "0812XXXXXX",
+      "gender": "LAKI_LAKI" | "PEREMPUAN",
+      "alamat": "district x",
+      "motivasi": "apapun yg terjadi tetaplah bernapas",
+      "fakultas": "FAKULTAS KOMUNIKASI DAN INFORMATIKA",
+      "prodi": "SISTEM_INFORMASI" | "TEKNIK_INFORMATIKA" |    "ILMU_KOMUNIKASI",
+}
+}
+```
