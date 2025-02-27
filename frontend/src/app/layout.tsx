@@ -22,11 +22,11 @@ export default function RootLayout({
       lang="en"
       className={`${GeistSans.variable}`}
     >
-      <body className="bg-background text-foreground antialiased">
+      <body className="scroll-smooth bg-background text-foreground antialiased">
         <ReactQueryProvider>
           <ThemeProvider attribute={"class"} defaultTheme="dark" enableSystem>
             <MouseMoveEffect />
-            <Navbar />
+            {/* <Navbar /> */}
             {children}
             <Toaster />
           </ThemeProvider>
