@@ -1,4 +1,7 @@
 import Users from "@/components/features/users";
+import { getRecords } from "@/utils/api";
+import { getCookie } from "@/utils/cookies";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const metadata = {
@@ -6,10 +9,11 @@ const metadata = {
   description: "User Register",
 };
 
-function UserRegister() {
+async function UserRegister() {
+  const token = await getCookie("token");
   return (
     <div>
-      <Users />
+      <Users token={token as string} />
     </div>
   );
 }

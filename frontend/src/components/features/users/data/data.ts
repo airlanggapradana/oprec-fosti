@@ -12,15 +12,35 @@ export const callTypes = new Map<UserStatus, string>([
   ],
 ]);
 
-export const userTypes = [
+export const genderTypes = [
   {
-    label: "Participant",
-    value: "participant",
-    icon: FiUser,
+    label: "Laki-laki",
+    value: "LAKI_LAKI",
   },
   {
-    label: "Admin",
-    value: "admin",
-    icon: RiAdminLine,
+    label: "Perempuan",
+    value: "PEREMPUAN",
   },
 ] as const;
+
+export const facultyTypes = [
+  {
+    label: "Fakultas Komunikasi dan Informatika",
+    value: "FAKULTAS KOMUNIKASI DAN INFORMATIKA",
+  },
+];
+
+export const prodyType = [
+  {
+    label: "Teknik Informatika",
+    value: "TEKNIK_INFORMATIKA",
+  },
+  {
+    label: "Sistem Informasi",
+    value: "SISTEM_INFORMASI",
+  },
+  {
+    label: "Pendidikan Teknik Informatika",
+    value: "PENDIDIKAN_TEKNIK_INFORMATIKA",
+  },
+];

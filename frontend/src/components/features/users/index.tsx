@@ -1,22 +1,23 @@
 "use client";
-import { Header } from "@/components/layout/header";
-import { Main } from "@/components/layout/main";
-import { ProfileDropdown } from "@/components/profile-dropdown";
-import { Search } from "@/components/search";
-import { ThemeSwitch } from "@/components/theme-switch";
+
+import UserTableSkeleton from "@/components/skeletons/user-table-skeleton";
 import { columns } from "./components/users-columns";
 import { UsersDialogs } from "./components/users-dialogs";
 import { UsersPrimaryButtons } from "./components/users-primary-buttons";
 import { UsersTable } from "./components/users-table";
 import UsersProvider from "./context/users-context";
-import { userListSchema } from "./data/schema";
-import { users } from "./data/users";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
+import { User } from "./data/schema";
 
-export default function Users() {
+import { getRecords } from "@/utils/api";
+import { useQuery } from "@tanstack/react-query";
+
+export default function Users({ token }: { token: string }) {
   // Parse user list
-  const userList = userListSchema.parse(users);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["users"],
+    queryFn: () => getRecords(token),
+  });
 
   return (
     <UsersProvider>
@@ -30,10 +31,19 @@ export default function Users() {
         <UsersPrimaryButtons />
       </div>
       <div className="-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <UsersTable data={userList} columns={columns} />
+        {isLoading ? (
+          <UserTableSkeleton />
+        ) : data?.result === null ? (
+          <div>No data</div>
+        ) : (
+          <UsersTable
+            data={data?.result?.data as unknown as User[] | []}
+            columns={columns}
+          />
+        )}
       </div>
 
-      <UsersDialogs />
+      <UsersDialogs token={token} />
     </UsersProvider>
   );
 }

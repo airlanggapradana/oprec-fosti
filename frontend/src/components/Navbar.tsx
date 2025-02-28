@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../../public/logo.png";
@@ -12,6 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
+import { usePathname } from "next/navigation";
 
 const navigations = [
   { name: "Home", href: "#home" },
@@ -20,8 +22,13 @@ const navigations = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+
+  const isAdminDashboard = pathname.includes("/admin/dashboard");
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header
+      className={`sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ${isAdminDashboard ? "hidden" : ""}`}
+    >
       <div className="container mx-auto flex h-20 max-w-screen-2xl items-center justify-between px-5">
         <Link href="/">
           <Image

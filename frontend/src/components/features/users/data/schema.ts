@@ -8,17 +8,22 @@ const userStatusSchema = z.union([
 ]);
 export type UserStatus = z.infer<typeof userStatusSchema>;
 
-const userRoleSchema = z.union([z.literal("participant"), z.literal("admin")]);
+const userGenderSchema = z.union([
+  z.literal("LAKI_LAKI"),
+  z.literal("PEREMPUAN"),
+]);
 
 const userSchema = z.object({
   id: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  username: z.string(),
+  nama: z.string(),
   email: z.string(),
-  phoneNumber: z.string(),
-  status: userStatusSchema,
-  role: userRoleSchema,
+  nim: z.string(),
+  no_telepon: z.string(),
+  gender: userGenderSchema,
+  alamat: z.string(),
+  motivasi: z.string(),
+  fakultas: z.string(),
+  prodi: z.string(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });

@@ -6,6 +6,7 @@ import {
   LoginResponse,
 } from "@/types/api.response";
 import { RecruitmentSchema } from "@/zod/validation.schema";
+import { UserForm } from "@/components/features/users/components/users-action-dialog";
 
 export const createRecord = async (payload: RecruitmentSchema) => {
   try {
@@ -167,6 +168,39 @@ export const deleteRecord = async (id: string, token: string) => {
     return {
       status: response.status,
       result: response.data.message,
+      error: null,
+    };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return {
+        status: error.response?.status || 500,
+        result: null,
+        error: error.response?.data.message,
+      };
+    }
+    return { status: 500, result: null, error: "Internal Server Error" };
+  }
+};
+
+export const updateRecord = async (
+  id: string,
+  payload: UserForm,
+  token: string,
+) => {
+  try {
+    const response = await axios.put(
+      `${env.NEXT_PUBLIC_BASE_API}/api/recruitment/${id}`,
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return {
+      status: response.status,
+      result: response.data,
       error: null,
     };
   } catch (error) {

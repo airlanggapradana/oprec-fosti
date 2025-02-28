@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,17 +19,23 @@ import { RecentSales } from "./components/recent-sales";
 import { Header } from "@/components/layout/header";
 import { Main } from "@/components/layout/main";
 import { UsersIcon } from "lucide-react";
+import { User } from "../users/data/schema";
+import { useQuery } from "@tanstack/react-query";
+import { getRecords } from "@/utils/api";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default function Dashboard() {
+export default function Dashboard({ token }: { token: string }) {
+  const { data, isLoading } = useQuery({
+    queryKey: ["users"],
+    queryFn: () => getRecords(token),
+  });
+  console.log(data);
   return (
     <>
       {/* ===== Top Heading ===== */}
 
       <div className="mb-2 flex items-center justify-between space-y-2">
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
-        <div className="flex items-center space-x-2">
-          <Button>Download</Button>
-        </div>
       </div>
       <Tabs
         orientation="vertical"
@@ -36,7 +44,7 @@ export default function Dashboard() {
       >
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Card>
+            <Card className="col-span-4">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Total Registrations
@@ -44,13 +52,21 @@ export default function Dashboard() {
                 <UsersIcon className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">192</div>
+                {isLoading ? (
+                  <div className="text-2xl font-bold">
+                    <Skeleton className="h-8 w-4" />
+                  </div>
+                ) : (
+                  <div className="text-2xl font-bold">
+                    {data?.result?.data.length || 0}
+                  </div>
+                )}
                 <p className="text-xs text-muted-foreground">
-                  +20.1% from last month
+                  number of users registered
                 </p>
               </CardContent>
             </Card>
-            <Card>
+            {/* <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Active Memberships
@@ -127,9 +143,9 @@ export default function Dashboard() {
                   +201 since last hour
                 </p>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-7">
+          {/* <div className="grid grid-cols-1 gap-4 lg:grid-cols-7">
             <Card className="col-span-1 lg:col-span-4">
               <CardHeader>
                 <CardTitle>Overview</CardTitle>
@@ -149,7 +165,7 @@ export default function Dashboard() {
                 <RecentSales />
               </CardContent>
             </Card>
-          </div>
+          </div> */}
         </TabsContent>
       </Tabs>
     </>
