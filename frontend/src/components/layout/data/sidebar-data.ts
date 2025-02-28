@@ -35,7 +35,7 @@ export const sidebarData: SidebarData = {
   ],
   navGroups: [
     {
-      title: "General",
+      title: "Overview",
       items: [
         {
           title: "Dashboard",
@@ -46,33 +46,6 @@ export const sidebarData: SidebarData = {
           title: "Users",
           url: "/admin/dashboard/user-register",
           icon: TbChecklist,
-        },
-      ],
-    },
-
-    {
-      title: "Other",
-      items: [
-        {
-          title: "Settings",
-          icon: IoSettingsOutline,
-          items: [
-            {
-              title: "Profile",
-              url: "/admin/dashboard/settings/profile",
-              icon: LuUserCog,
-            },
-            {
-              title: "Account",
-              url: "/admin/dashboard/settings/account",
-              icon: FiTool,
-            },
-            {
-              title: "Appearance",
-              url: "/admin/dashboard/settings/appearance",
-              icon: LuPalette,
-            },
-          ],
         },
       ],
     },

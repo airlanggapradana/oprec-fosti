@@ -5,7 +5,7 @@ import { deleteCookie } from "@/utils/cookies";
 
 const LogoutBtn = () => {
   return (
-    <Button variant={"destructive"} onClick={() => deleteCookie("token")}>
+    <Button variant={"outline"} onClick={() => deleteCookie("token")}>
       Logout
     </Button>
   );

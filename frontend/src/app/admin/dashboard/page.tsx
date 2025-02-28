@@ -6,7 +6,7 @@ export default async function DashboardPage() {
   const token = await getCookie("token");
 
   return (
-    <div>
+    <div className="relative z-30">
       <Dashboard token={token as string} />
     </div>
   );

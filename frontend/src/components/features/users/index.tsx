@@ -23,9 +23,9 @@ export default function Users({ token }: { token: string }) {
     <UsersProvider>
       <div className="mb-2 flex flex-wrap items-center justify-between space-y-2">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">User List</h2>
+          <h2 className="text-2xl font-bold tracking-tight">List Pendaftar</h2>
           <p className="text-muted-foreground">
-            Manage your users and their roles here.
+            Daftar Mahasiswa yang sudah mendaftar
           </p>
         </div>
         <UsersPrimaryButtons />

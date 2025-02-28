@@ -6,15 +6,24 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { NavGroup } from "@/components/layout/nav-group";
-import { NavUser } from "@/components/layout/nav-user";
-import { TeamSwitcher } from "@/components/layout/team-switcher";
 import { sidebarData } from "./data/sidebar-data";
+import logo from "../../../public/logo.png";
+import Image from "next/image";
+import LogoutBtn from "../LogoutBtn";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" variant="floating" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={sidebarData.teams} />
+        <div className="w-full py-3">
+          <Image
+            src={logo}
+            alt="logo"
+            width={100}
+            height={100}
+            className="mx-auto dark:invert"
+          />
+        </div>
       </SidebarHeader>
       <SidebarContent>
         {sidebarData.navGroups.map((props) => (
@@ -22,7 +31,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={sidebarData.user} />
+        <LogoutBtn />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
