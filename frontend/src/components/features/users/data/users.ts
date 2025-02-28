@@ -5,20 +5,15 @@ export const users = Array.from({ length: 20 }, () => {
   const lastName = faker.person.lastName();
   return {
     id: faker.string.uuid(),
-    firstName,
-    lastName,
-    username: faker.internet
-      .username({ firstName, lastName })
-      .toLocaleLowerCase(),
-    email: faker.internet.email({ firstName }).toLocaleLowerCase(),
-    phoneNumber: faker.phone.number({ style: "international" }),
-    status: faker.helpers.arrayElement([
-      "active",
-      "inactive",
-      "invited",
-      "suspended",
-    ]),
-    role: faker.helpers.arrayElement(["participant", "admin"]),
+    nama: faker.person.fullName(),
+    email: faker.internet.email(),
+    nim: faker.string.uuid(),
+    no_telephone: faker.phone.number(),
+    gender: faker.helpers.arrayElement(["LAKI_LAKI", "PEREMPUAN"]),
+    alamat: faker.location.streetAddress(),
+    motivasi: faker.lorem.sentence(),
+    fakultas: faker.company.name(),
+    prodi: faker.company.name(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.recent(),
   };

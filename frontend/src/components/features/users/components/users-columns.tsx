@@ -3,11 +3,19 @@ import { ColumnDef } from "@tanstack/react-table";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { callTypes, userTypes } from "../data/data";
 import { User } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import LongText from "@/components/long-text";
+
+const toTitleCase = (str: string) => {
+  return str
+    .toLowerCase()
+    .replace(/_/g, " ")
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -41,12 +49,12 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "username",
+    accessorKey: "nama",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Username" />
+      <DataTableColumnHeader column={column} title="Nama" />
     ),
     cell: ({ row }) => (
-      <LongText className="max-w-36">{row.getValue("username")}</LongText>
+      <LongText className="max-w-36">{row.getValue("nama")}</LongText>
     ),
     meta: {
       className: cn(
@@ -57,18 +65,7 @@ export const columns: ColumnDef<User>[] = [
     },
     enableHiding: false,
   },
-  {
-    id: "fullName",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
-    ),
-    cell: ({ row }) => {
-      const { firstName, lastName } = row.original;
-      const fullName = `${firstName} ${lastName}`;
-      return <LongText className="max-w-36">{fullName}</LongText>;
-    },
-    meta: { className: "w-36" },
-  },
+
   {
     accessorKey: "email",
     header: ({ column }) => (
@@ -79,62 +76,69 @@ export const columns: ColumnDef<User>[] = [
     ),
   },
   {
-    accessorKey: "phoneNumber",
+    accessorKey: "nim",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Phone Number" />
+      <DataTableColumnHeader column={column} title="NIM" />
     ),
-    cell: ({ row }) => <div>{row.getValue("phoneNumber")}</div>,
+    cell: ({ row }) => <div>{row.getValue("nim")}</div>,
     enableSorting: false,
   },
   {
-    accessorKey: "status",
+    accessorKey: "no_telepon",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title="No Telephone" />
     ),
-    cell: ({ row }) => {
-      const { status } = row.original;
-      const badgeColor = callTypes.get(status);
-      return (
-        <div className="flex space-x-2">
-          <Badge variant="outline" className={cn("capitalize", badgeColor)}>
-            {row.getValue("status")}
-          </Badge>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-    enableHiding: false,
+    cell: ({ row }) => <div>{row.getValue("no_telepon")}</div>,
     enableSorting: false,
   },
   {
-    accessorKey: "role",
+    accessorKey: "gender",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Role" />
+      <DataTableColumnHeader column={column} title="Gender" />
     ),
     cell: ({ row }) => {
-      const { role } = row.original;
-      const userType = userTypes.find(({ value }) => value === role);
-
-      if (!userType) {
-        return null;
-      }
-
-      return (
-        <div className="flex items-center gap-x-2">
-          {userType.icon && (
-            <userType.icon size={16} className="text-muted-foreground" />
-          )}
-          <span className="text-sm capitalize">{row.getValue("role")}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+      const gender = row.getValue("gender");
+      return <div>{toTitleCase(gender as string)}</div>;
     },
     enableSorting: false,
-    enableHiding: false,
+  },
+  {
+    accessorKey: "alamat",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Alamat" />
+    ),
+    cell: ({ row }) => <div>{row.getValue("alamat")}</div>,
+    enableSorting: false,
+  },
+  {
+    accessorKey: "motivasi",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Motivasi" />
+    ),
+    cell: ({ row }) => <div>{row.getValue("motivasi")}</div>,
+    enableSorting: false,
+  },
+  {
+    accessorKey: "fakultas",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Fakultas" />
+    ),
+    cell: ({ row }) => {
+      const fakultas = row.getValue("fakultas");
+      return <div>{toTitleCase(fakultas as string)}</div>;
+    },
+    enableSorting: false,
+  },
+  {
+    accessorKey: "prodi",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Prodi" />
+    ),
+    cell: ({ row }) => {
+      const prodi = row.getValue("prodi");
+      return <div>{toTitleCase(prodi as string)}</div>;
+    },
+    enableSorting: false,
   },
   {
     id: "actions",

@@ -74,11 +74,6 @@ export const sidebarData: SidebarData = {
             },
           ],
         },
-        {
-          title: "Help Center",
-          url: "/admin/dashboard/help-center",
-          icon: MdOutlineHelpCenter,
-        },
       ],
     },
   ],

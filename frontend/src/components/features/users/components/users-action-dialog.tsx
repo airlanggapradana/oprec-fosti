@@ -22,108 +22,116 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { userTypes } from "../data/data";
+import { facultyTypes, genderTypes, prodyType } from "../data/data";
 import { User } from "../data/schema";
-import { PasswordInput } from "@/components/password-input";
 import { SelectDropdown } from "@/components/select-dropdown";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateRecord } from "@/utils/api";
+import { toast } from "sonner";
+import { USERS_QUERY_KEY } from "../data/constants";
 
-const formSchema = z
-  .object({
-    firstName: z.string().min(1, { message: "First Name is required." }),
-    lastName: z.string().min(1, { message: "Last Name is required." }),
-    username: z.string().min(1, { message: "Username is required." }),
-    phoneNumber: z.string().min(1, { message: "Phone number is required." }),
-    email: z
-      .string()
-      .min(1, { message: "Email is required." })
-      .email({ message: "Email is invalid." }),
-    password: z.string().transform((pwd) => pwd.trim()),
-    role: z.string().min(1, { message: "Role is required." }),
-    confirmPassword: z.string().transform((pwd) => pwd.trim()),
-    isEdit: z.boolean(),
-  })
-  .superRefine(({ isEdit, password, confirmPassword }, ctx) => {
-    if (!isEdit || (isEdit && password !== "")) {
-      if (password === "") {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Password is required.",
-          path: ["password"],
-        });
-      }
+const formSchema = z.object({
+  nama: z.string().min(1, { message: "Name is required." }),
+  nim: z.string().min(1, { message: "NIM is required." }),
+  email: z
+    .string()
+    .min(1, { message: "Email is required." })
+    .email({ message: "Email is invalid." }),
+  no_telepon: z.string().min(1, { message: "Phone number is required." }),
+  gender: z.enum(["LAKI_LAKI", "PEREMPUAN"]),
+  alamat: z.string().min(1, { message: "Address is required." }),
+  motivasi: z.string().min(1, { message: "Motivation is required." }),
+  fakultas: z.string().min(1, { message: "Faculty is required." }),
+  prodi: z.string().min(1, { message: "Prodi is required." }),
+  isEdit: z.boolean(),
+});
 
-      if (password.length < 8) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Password must be at least 8 characters long.",
-          path: ["password"],
-        });
-      }
+export type UserForm = z.infer<typeof formSchema>;
 
-      if (!/[a-z]/.exec(password)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Password must contain at least one lowercase letter.",
-          path: ["password"],
-        });
-      }
-
-      if (!/[0-9]/.exec(password)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Password must contain at least one number.",
-          path: ["password"],
-        });
-      }
-
-      if (password !== confirmPassword) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Passwords don't match.",
-          path: ["confirmPassword"],
-        });
-      }
-    }
-  });
-type UserForm = z.infer<typeof formSchema>;
-
+type UsersQueryData = {
+  result: {
+    data: User[];
+  };
+};
 interface Props {
   currentRow?: User;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  token: string;
 }
 
-export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
+export function UsersActionDialog({
+  currentRow,
+  open,
+  onOpenChange,
+  token,
+}: Props) {
   const isEdit = !!currentRow;
   const form = useForm<UserForm>({
     resolver: zodResolver(formSchema),
     defaultValues: isEdit
       ? {
           ...currentRow,
-          password: "",
-          confirmPassword: "",
-          isEdit,
+          isEdit: false,
         }
       : {
-          firstName: "",
-          lastName: "",
-          username: "",
+          nama: "",
           email: "",
-          role: "",
-          phoneNumber: "",
-          password: "",
-          confirmPassword: "",
-          isEdit,
+          nim: "",
+          no_telepon: "",
+          gender: "LAKI_LAKI",
+          alamat: "",
+          motivasi: "",
+          fakultas: "",
+          prodi: "",
+          isEdit: false,
         },
   });
+  const queryClient = useQueryClient();
+  const { mutateAsync } = useMutation({
+    mutationFn: async (data: UserForm) => {
+      const response = await updateRecord(
+        currentRow?.id as string,
+        data,
+        token,
+      );
+      if (response.status === 200) {
+        return response;
+      } else {
+        throw new Error(response.error as string);
+      }
+    },
+    onSuccess: async (response) => {
+      queryClient.setQueryData(USERS_QUERY_KEY, (oldData: UsersQueryData) => {
+        const updatedUsers = oldData.result.data.map((user: User) =>
+          user.id === currentRow?.id
+            ? { ...user, ...response.result.data }
+            : user,
+        );
+        return {
+          ...oldData,
+          result: { ...oldData.result, data: updatedUsers },
+        };
+      });
 
+      toast.success("User berhasil diubah!");
+      form.reset();
+      onOpenChange(false);
+    },
+    onError: (error) => {
+      toast.error(`User gagal diubah : ${error.message}`);
+      form.setError("nama", { message: error.message }, { shouldFocus: true });
+      form.setError(
+        "email",
+        { message: error.message },
+        { shouldFocus: false },
+      );
+    },
+  });
   const onSubmit = (values: UserForm) => {
-    form.reset();
-    // TODO: Implement API call to create or update user
+    mutateAsync(values);
     onOpenChange(false);
   };
-
-  const isPasswordTouched = !!form.formState.dirtyFields.password;
 
   return (
     <Dialog
@@ -150,56 +158,17 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
             >
               <FormField
                 control={form.control}
-                name="firstName"
+                name="nama"
                 render={({ field }) => (
                   <FormItem className="grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0">
                     <FormLabel className="col-span-2 text-right">
-                      First Name
+                      Name
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="John"
+                        placeholder="John Doe"
                         className="col-span-4"
                         autoComplete="off"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="col-span-4 col-start-3" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem className="grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0">
-                    <FormLabel className="col-span-2 text-right">
-                      Last Name
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Doe"
-                        className="col-span-4"
-                        autoComplete="off"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="col-span-4 col-start-3" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem className="grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0">
-                    <FormLabel className="col-span-2 text-right">
-                      Username
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="john_doe"
-                        className="col-span-4"
                         {...field}
                       />
                     </FormControl>
@@ -219,6 +188,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
                       <Input
                         placeholder="john.doe@gmail.com"
                         className="col-span-4"
+                        autoComplete="off"
                         {...field}
                       />
                     </FormControl>
@@ -228,15 +198,13 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
               />
               <FormField
                 control={form.control}
-                name="phoneNumber"
+                name="nim"
                 render={({ field }) => (
                   <FormItem className="grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0">
-                    <FormLabel className="col-span-2 text-right">
-                      Phone Number
-                    </FormLabel>
+                    <FormLabel className="col-span-2 text-right">NIM</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="+123456789"
+                        placeholder="1234567890"
                         className="col-span-4"
                         {...field}
                       />
@@ -247,18 +215,75 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
               />
               <FormField
                 control={form.control}
-                name="role"
+                name="no_telepon"
                 render={({ field }) => (
                   <FormItem className="grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0">
                     <FormLabel className="col-span-2 text-right">
-                      Role
+                      Phone Number
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="081234567890"
+                        className="col-span-4"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="col-span-4 col-start-3" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="alamat"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0">
+                    <FormLabel className="col-span-2 text-right">
+                      Address
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Jl. Raya No. 123, Jakarta"
+                        className="col-span-4"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="col-span-4 col-start-3" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="motivasi"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0">
+                    <FormLabel className="col-span-2 text-right">
+                      Motivation
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="I want to learn more about programming"
+                        className="col-span-4"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="col-span-4 col-start-3" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="fakultas"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0">
+                    <FormLabel className="col-span-2 text-right">
+                      Faculty
                     </FormLabel>
                     <SelectDropdown
                       defaultValue={field.value}
                       onValueChange={field.onChange}
                       placeholder="Select a role"
                       className="col-span-4"
-                      items={userTypes.map(({ label, value }) => ({
+                      items={facultyTypes.map(({ label, value }) => ({
                         label,
                         value,
                       }))}
@@ -269,40 +294,22 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
               />
               <FormField
                 control={form.control}
-                name="password"
+                name="prodi"
                 render={({ field }) => (
                   <FormItem className="grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0">
                     <FormLabel className="col-span-2 text-right">
-                      Password
+                      Prodi
                     </FormLabel>
-                    <FormControl>
-                      <PasswordInput
-                        placeholder="e.g., S3cur3P@ssw0rd"
-                        className="col-span-4"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="col-span-4 col-start-3" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem className="grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0">
-                    <FormLabel className="col-span-2 text-right">
-                      Confirm Password
-                    </FormLabel>
-                    <FormControl>
-                      <PasswordInput
-                        disabled={!isPasswordTouched}
-                        placeholder="e.g., S3cur3P@ssw0rd"
-                        className="col-span-4"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="col-span-4 col-start-3" />
+                    <SelectDropdown
+                      defaultValue={field.value}
+                      onValueChange={field.onChange}
+                      placeholder="Select a role"
+                      className="col-span-4"
+                      items={prodyType.map(({ label, value }) => ({
+                        label,
+                        value,
+                      }))}
+                    />
                   </FormItem>
                 )}
               />
