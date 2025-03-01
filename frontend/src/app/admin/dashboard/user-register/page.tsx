@@ -12,7 +12,7 @@ const metadata = {
 async function UserRegister() {
   const token = await getCookie("token");
   return (
-    <div>
+    <div className="rleative z-30">
       <Users token={token as string} />
     </div>
   );

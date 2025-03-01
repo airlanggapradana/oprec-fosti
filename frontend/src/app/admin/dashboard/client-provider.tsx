@@ -17,7 +17,7 @@ export default function ClientProvider({
 }) {
   return (
     <SearchProvider>
-      <SidebarProvider defaultOpen={true}>
+      <SidebarProvider className="relative z-30" defaultOpen={true}>
         <QueryClientProvider client={queryClient}>
           <AppSidebar />
           <div
