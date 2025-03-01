@@ -53,6 +53,7 @@ const config = {
     "@typescript-eslint/no-unsafe-return": "off",
     "@typescript-eslint/non-nullable-type-assertion-style": "off",
     "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-explicit-any": "off",
   },
 };
 module.exports = config;
