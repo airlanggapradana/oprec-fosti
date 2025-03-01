@@ -160,3 +160,9 @@ Response (Success) :
 }
 }
 ```
+
+## Export as Excel
+
+Endpoint : **GET** /api/excel/export
+
+Authorization : **"Bearer ${token}"**
