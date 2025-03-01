@@ -214,3 +214,32 @@ export const updateRecord = async (
     return { status: 500, result: null, error: "Internal Server Error" };
   }
 };
+
+export async function downloadExcel(token: string) {
+  try {
+    const response = await axios.get(
+      `${env.NEXT_PUBLIC_BASE_API}/api/excel/export`,
+      {
+        responseType: "blob", // Important for handling binary data
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    // Create a link element to trigger the download
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "DataOprecFOSTI_2025.xlsx"); // Set the file name
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Error downloading file:", error);
+    alert("Failed to download the file. Please try again.");
+  }
+}
