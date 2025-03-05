@@ -35,6 +35,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createRecord, sendEmail } from "@/utils/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { FileUpload } from "./FileUpload";
 
 const FormPendaftaran = () => {
   const router = useRouter();
@@ -50,6 +51,7 @@ const FormPendaftaran = () => {
       motivasi: "",
       fakultas: "FAKULTAS KOMUNIKASI DAN INFORMATIKA",
       prodi: "TEKNIK_INFORMATIKA",
+      foto: null,
     },
   });
 
@@ -290,6 +292,26 @@ const FormPendaftaran = () => {
                       </SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="foto"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Foto</FormLabel>
+                  <FormControl>
+                    <FileUpload
+                      value={field.value as File | null}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Unggah foto terbaru Anda. Format JPG atau PNG (maks. 5MB).
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

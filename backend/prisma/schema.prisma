@@ -14,16 +14,21 @@ datasource db {
 }
 
 model Recruitment {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
   nama       String
-  email      String @unique
-  nim        String @unique
+  email      String  @unique
+  nim        String  @unique
   no_telepon String
   gender     Gender
   alamat     String
   motivasi   String
   fakultas   String
   prodi      Prodi
+  // File storage information
+  fotoUrl    String? // URL or path to the stored image
+  fotoName   String? // Original filename
+  fotoSize   Int? // File size in bytes
+  fotoType   String? // MIME type of the file
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
