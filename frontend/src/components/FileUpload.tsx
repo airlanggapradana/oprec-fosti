@@ -38,7 +38,7 @@ export function FileUpload({
       reader.onload = () => {
         setPreview(reader.result as string);
       };
-      reader.readAsDataURL(file as Blob);
+      reader.readAsDataURL(file as File);
     },
     [onChange],
   );

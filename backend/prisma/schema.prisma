@@ -25,10 +25,7 @@ model Recruitment {
   fakultas   String
   prodi      Prodi
   // File storage information
-  fotoUrl    String? // URL or path to the stored image
-  fotoName   String? // Original filename
-  fotoSize   Int? // File size in bytes
-  fotoType   String? // MIME type of the file
+  foto       String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
