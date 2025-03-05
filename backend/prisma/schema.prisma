@@ -14,10 +14,10 @@ datasource db {
 }
 
 model Recruitment {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
   nama       String
-  email      String  @unique
-  nim        String  @unique
+  email      String @unique
+  nim        String @unique
   no_telepon String
   gender     Gender
   alamat     String
@@ -25,7 +25,7 @@ model Recruitment {
   fakultas   String
   prodi      Prodi
   // File storage information
-  foto       String?
+  foto       String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
