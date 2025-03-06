@@ -15,7 +15,6 @@ export const recruitmentSchema = z.object({
     .nonempty()
     .default("FAKULTAS KOMUNIKASI DAN INFORMATIKA"),
   prodi: z.enum(["SISTEM_INFORMASI", "TEKNIK_INFORMATIKA", "ILMU_KOMUNIKASI"]),
-  foto: z.string().nonempty("Foto tidak boleh kosong"),
 });
 
 export type RecruitmentSchema = z.infer<typeof recruitmentSchema>;

@@ -24,8 +24,6 @@ model Recruitment {
   motivasi   String
   fakultas   String
   prodi      Prodi
-  // File storage information
-  foto       String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
