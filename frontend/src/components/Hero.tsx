@@ -6,6 +6,8 @@ import { TextAnimate } from "./magicui/text-animate";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ShinyButton } from "./magicui/shiny-button";
+import HeroVideoDialog from "./magicui/hero-video-dialog";
+import { ShineBorder } from "./magicui/shine-border";
 
 const Hero = () => {
   const router = useRouter();
@@ -50,15 +52,27 @@ const Hero = () => {
           </Button>
         </div>
       </div>
-      <div className="rounded-[1.7rem] bg-gray-700 bg-opacity-50 p-2 shadow-xl shadow-gray-700/20 md:rounded-[3.4rem] md:p-4">
-        <Image
-          src="/img/main.png"
-          alt="hero"
-          width={1800}
-          height={2000}
-          className="rounded-[1.7rem] md:rounded-[3.4rem]"
-        />
-      </div>
+      <ShineBorder
+        color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
+        className="relative overflow-hidden"
+      >
+        <div>
+          <HeroVideoDialog
+            className="block dark:hidden"
+            animationStyle="from-center"
+            videoSrc="https://www.youtube.com/embed/Mh4lx5Yl3bs?si=dy_P_tOJKvqHSOoE"
+            thumbnailSrc="https://i.ytimg.com/vi_webp/Mh4lx5Yl3bs/maxresdefault.webp"
+            thumbnailAlt="Hero Video"
+          />
+          <HeroVideoDialog
+            className="hidden dark:block"
+            animationStyle="from-center"
+            videoSrc="https://www.youtube.com/embed/Mh4lx5Yl3bs?si=dy_P_tOJKvqHSOoE"
+            thumbnailSrc="https://i.ytimg.com/vi_webp/Mh4lx5Yl3bs/maxresdefault.webp"
+            thumbnailAlt="Hero Video"
+          />
+        </div>
+      </ShineBorder>
     </section>
   );
 };
