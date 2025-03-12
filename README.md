@@ -1,5 +1,4 @@
-
-![Logo](https://blog.fostiums.org/wp-content/uploads/2021/04/logo.png)
+![LOGO FOSTI PUTIH](https://github.com/user-attachments/assets/23ea1eda-09f9-4a3f-9b91-3331946af2d2)
 
 # Website Open Recruitment FOSTI 2025
 
