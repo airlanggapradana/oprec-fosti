@@ -13,7 +13,7 @@ const SubmissionFlow = () => {
       id="tutorial"
       className="container mx-auto space-y-16 py-24 md:py-32"
     >
-      <h1 className="mb-12 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-center text-3xl font-bold tracking-tighter text-transparent dark:bg-gradient-to-t dark:from-slate-300 dark:to-slate-100 sm:text-4xl md:text-5xl">
+      <h1 className="mb-12 bg-gradient-to-b from-teal-500 to-teal-600 bg-clip-text text-center text-3xl font-bold tracking-tighter text-transparent dark:bg-gradient-to-t dark:from-teal-300 dark:to-teal-100 sm:text-4xl md:text-5xl">
         Tata Cara Pendaftaran
       </h1>
       <div className="mx-auto max-w-6xl px-5 md:px-0">

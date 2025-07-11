@@ -32,7 +32,7 @@ const Divisi = () => {
         <TypingAnimation
           duration={50}
           startOnView
-          className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-3xl font-bold leading-[1.1] text-transparent dark:bg-gradient-to-t dark:from-slate-300 dark:to-slate-100 sm:text-3xl md:text-5xl"
+          className="bg-gradient-to-b from-teal-500 to-teal-600 bg-clip-text text-3xl font-bold leading-[1.1] text-transparent dark:bg-gradient-to-t dark:from-teal-300 dark:to-teal-100 sm:text-3xl md:text-5xl"
         >
           Divisi Yang Ada di FOSTI
         </TypingAnimation>
@@ -43,9 +43,13 @@ const Divisi = () => {
       <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8 px-5 md:px-0">
         {divisi.map((tim) => (
           <ShineBorder
-            color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
+            color={[
+              "oklch(70.4% 0.14 182.503)",
+              "oklch(63.7% 0.237 25.331)",
+              "oklch(96.7% 0.003 264.542)",
+            ]}
             key={tim.name}
-            className="w-full"
+            className="w-full dark:bg-gray-900"
             duration={10}
           >
             <CardContent className="flex w-full flex-col gap-2 p-6 md:gap-4">

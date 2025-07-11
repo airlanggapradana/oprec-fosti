@@ -9,8 +9,7 @@ const timelines = [
     title: "Periode Pendaftaran",
     date: "March 1 - March 15, 2024",
     description: "Kirim pendaftaranmu sekarang juga",
-    gradient:
-      "from-purple-400 to-purple-600 dark:from-slate-500 dark:to-slate-300",
+    gradient: "from-teal-400 to-teal-600 dark:from-teal-500 dark:to-teal-300",
     isLeft: true,
   },
   {
@@ -18,8 +17,7 @@ const timelines = [
     title: "Review Berkas Pendaftaran",
     date: "March 16 - March 31, 2024",
     description: "Kita akan meninjau berkas pendaftaranmu",
-    gradient:
-      "from-purple-500 to-pink-500 dark:from-slate-500 dark:to-slate-300",
+    gradient: "from-teal-500 to-teal-600 dark:from-teal-500 dark:to-teal-300",
     isLeft: false,
   },
   {
@@ -27,7 +25,7 @@ const timelines = [
     title: "Interviews",
     date: "April 1 - April 15, 2024",
     description: "Kandidat yang lolos akan dihubungi untuk interview",
-    gradient: "from-pink-500 to-pink-600 dark:from-slate-500 dark:to-slate-300",
+    gradient: "from-teal-500 to-teal-600 dark:from-teal-500 dark:to-teal-300",
     isLeft: true,
   },
   {
@@ -35,8 +33,7 @@ const timelines = [
     title: "Seleksi Akhir",
     date: "April 20, 2024",
     description: "Pengumuman anggota baru",
-    gradient:
-      "from-pink-600 to-purple-600 dark:from-slate-500 dark:to-slate-300",
+    gradient: "from-teal-600 to-teal-500 dark:from-teal-500 dark:to-teal-300",
     isLeft: false,
   },
 ];
@@ -44,12 +41,12 @@ const timelines = [
 const Timeline = () => {
   return (
     <section id="faq" className="container mx-auto space-y-16 py-24 md:py-32">
-      <h2 className="mb-12 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-center text-3xl font-bold tracking-tighter text-transparent dark:bg-gradient-to-t dark:from-slate-300 dark:to-slate-100 sm:text-4xl md:text-5xl">
+      <h2 className="mb-12 bg-gradient-to-b from-teal-500 to-teal-600 bg-clip-text text-center text-3xl font-bold tracking-tighter text-transparent dark:bg-gradient-to-t dark:from-teal-300 dark:to-teal-100 sm:text-4xl md:text-5xl">
         Recruitment Timeline
       </h2>
       <div className="mx-auto max-w-3xl px-5 md:px-0">
         <div className="relative px-5">
-          <div className="absolute left-1/2 h-full w-1 -translate-x-1/2 transform bg-gradient-to-b from-purple-400 to-pink-400 dark:bg-gradient-to-b dark:from-slate-300 dark:to-slate-100"></div>
+          <div className="absolute left-1/2 h-full w-1 -translate-x-1/2 transform bg-gradient-to-b from-teal-400 to-teal-600 dark:bg-gradient-to-b dark:from-teal-300 dark:to-teal-100"></div>
           <div className="space-y-12">
             {timelines.map((item, index) => (
               <TimelineItem key={index} {...item} />
@@ -114,10 +111,10 @@ function TimelineItem({
         {icon}
       </div>
       <Card
-        className={`ml-12 w-[90%] md:ml-0 md:w-5/12 ${isLeft ? "md:mr-8" : "md:ml-8"} bg-white/80 backdrop-blur-md transition-all duration-500 hover:shadow-lg dark:bg-gray-800/80 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+        className={`ml-12 w-[90%] md:ml-0 md:w-5/12 ${isLeft ? "md:mr-8" : "md:ml-8"} bg-white/80 backdrop-blur-md hover:shadow-lg dark:bg-gray-800/80 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
       >
         <CardHeader>
-          <CardTitle className="text-purple-700 dark:text-purple-400">
+          <CardTitle className="text-teal-700 dark:text-teal-400">
             {title}
           </CardTitle>
         </CardHeader>

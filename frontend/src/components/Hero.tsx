@@ -39,9 +39,21 @@ const Hero = () => {
         </div>
 
         <div className="z-10 flex items-center gap-4 px-9 md:px-0">
-          <ShinyButton onClick={() => router.push("/pendaftaran")}>
+          {/*<ShinyButton*/}
+          {/*  className={"text-lg"}*/}
+          {/*  onClick={() => router.push("/pendaftaran")}*/}
+          {/*>*/}
+          {/*  Gabung Sekarang*/}
+          {/*</ShinyButton>*/}
+          <Button
+            variant="default"
+            size="lg"
+            className="flex items-center gap-2"
+            onClick={() => router.push("/pendaftaran")}
+          >
             Gabung Sekarang
-          </ShinyButton>
+            <ArrowRight className="size-4" />
+          </Button>
 
           <Button
             variant="outline"

@@ -1,22 +1,24 @@
+"use client";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../public/logo.png";
+import logoPutih from "../../public/LOGO FOSTI PUTIH.png";
+import { useTheme } from "next-themes";
 import React from "react";
 
 const Footer = () => {
+  const { theme } = useTheme();
   return (
     <footer className="border-t bg-white py-12 text-white dark:bg-gray-900">
       <div className="container mx-auto grid grid-cols-1 gap-8 px-4 py-8 md:grid-cols-4 md:py-12">
         <div className="col-span-1 grid md:col-span-2">
           <div className="flex flex-col justify-between gap-3">
-            <Image
-              alt="logo"
-              src={logo}
-              width={100}
-              height={100}
-              className="dark:invert"
-            />
+            {theme === "dark" ? (
+              <Image alt="logo" src={logoPutih} width={100} height={100} />
+            ) : (
+              <Image alt="logo" src={logo} width={100} height={100} />
+            )}
             <p className="text-sm text-gray-400 md:text-base">
               Created with ❤️ by RISTEK Web Development Team
             </p>

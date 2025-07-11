@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../../public/logo.png";
+import logoPutih from "../../public/LOGO FOSTI PUTIH.png";
 import { ThemeToggle } from "./ThemeToggle";
 import DaftarBtn from "./DaftarBtn";
 import { MenuSquare } from "lucide-react";
@@ -14,6 +15,7 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 
 const navigations = [
   { name: "Home", href: "#home" },
@@ -22,6 +24,7 @@ const navigations = [
 ];
 
 export default function Navbar() {
+  const { theme } = useTheme();
   const pathname = usePathname();
 
   const isAdminDashboard = pathname.includes("/admin/dashboard");
@@ -31,13 +34,11 @@ export default function Navbar() {
     >
       <div className="container mx-auto flex h-20 max-w-screen-2xl items-center justify-between px-5">
         <Link href="/">
-          <Image
-            alt="logo"
-            src={logo}
-            width={80}
-            height={80}
-            className="dark:invert"
-          />
+          {theme === "dark" ? (
+            <Image alt="logo" src={logoPutih} width={100} height={100} />
+          ) : (
+            <Image alt="logo" src={logo} width={100} height={100} />
+          )}
         </Link>
         <div className="hidden items-center gap-7 md:flex">
           {navigations.map((nav, index) => (
