@@ -9,8 +9,20 @@ export type CreateRecordResponse = {
     gender: "LAKI_LAKI" | "PEREMPUAN";
     alamat: string;
     motivasi: string;
-    fakultas: "FAKULTAS KOMUNIKASI DAN INFORMATIKA";
-    prodi: "TEKNIK_INFORMATIKA" | "SISTEM_INFORMASI" | "ILMU_KOMUNIKASI";
+    fakultas:
+      | "FKIP"
+      | "FEB"
+      | "FH"
+      | "FT"
+      | "FF"
+      | "FP"
+      | "FG"
+      | "FAI"
+      | "FIK"
+      | "FK"
+      | "FKG"
+      | "FKI";
+    prodi: string;
     createdAt: string;
     updatedAt: string;
   };

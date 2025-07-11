@@ -35,9 +35,9 @@ export default function Navbar() {
       <div className="container mx-auto flex h-20 max-w-screen-2xl items-center justify-between px-5">
         <Link href="/">
           {theme === "dark" ? (
-            <Image alt="logo" src={logoPutih} width={100} height={100} />
+            <Image alt="logo" src={logoPutih} width={80} height={80} />
           ) : (
-            <Image alt="logo" src={logo} width={100} height={100} />
+            <Image alt="logo" src={logo} width={80} height={80} />
           )}
         </Link>
         <div className="hidden items-center gap-7 md:flex">

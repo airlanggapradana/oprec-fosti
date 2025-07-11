@@ -65,8 +65,13 @@ const Hero = () => {
         </div>
       </div>
       <ShineBorder
-        color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
-        className="relative overflow-hidden"
+        color={[
+          "oklch(70.4% 0.14 182.503)",
+          "oklch(63.7% 0.237 25.331)",
+          "oklch(96.7% 0.003 264.542)",
+        ]}
+        borderWidth={2}
+        className="relative overflow-hidden p-1"
       >
         <div>
           <HeroVideoDialog

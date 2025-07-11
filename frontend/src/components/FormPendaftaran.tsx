@@ -48,8 +48,8 @@ const FormPendaftaran = () => {
       alamat: "",
       gender: "LAKI_LAKI",
       motivasi: "",
-      fakultas: "FAKULTAS KOMUNIKASI DAN INFORMATIKA",
-      prodi: "TEKNIK_INFORMATIKA",
+      fakultas: "FKI",
+      prodi: "",
     },
   });
 
@@ -83,7 +83,6 @@ const FormPendaftaran = () => {
   });
 
   const onSubmit: SubmitHandler<RecruitmentSchema> = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     await mutateAsync(data);
   };
   return (
@@ -244,6 +243,7 @@ const FormPendaftaran = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Fakultas</FormLabel>
+                  <FormDescription>Fakultas kamu saat ini.</FormDescription>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
@@ -254,9 +254,30 @@ const FormPendaftaran = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="FAKULTAS KOMUNIKASI DAN INFORMATIKA">
-                        FAKULTAS KOMUNIKASI DAN INFORMATIKA
-                      </SelectItem>
+                      {[
+                        {
+                          value: "FKI",
+                          label: "Fakultas Komunikasi dan Informatika",
+                        },
+                        {
+                          value: "FKIP",
+                          label: "Fakultas Keguruan dan Ilmu Pendidikan",
+                        },
+                        { value: "FEB", label: "Fakultas Ekonomi dan Bisnis" },
+                        { value: "FH", label: "Fakultas Hukum" },
+                        { value: "FT", label: "Fakultas Teknik" },
+                        { value: "FF", label: "Fakultas Farmasi" },
+                        { value: "FP", label: "Fakultas Psikologi" },
+                        { value: "FG", label: "Fakultas Geografi" },
+                        { value: "FAI", label: "Fakultas Agama Islam" },
+                        { value: "FIK", label: "Fakultas Ilmu Kesehatan" },
+                        { value: "FKG", label: "Fakultas Kedokteran Gigi" },
+                        { value: "FK", label: "Fakultas Kedokteran" },
+                      ].map((fakultas) => (
+                        <SelectItem key={fakultas.value} value={fakultas.value}>
+                          {fakultas.label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -269,27 +290,12 @@ const FormPendaftaran = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Program Studi</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Pilih program studi" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="TEKNIK_INFORMATIKA">
-                        Teknik Informatika
-                      </SelectItem>
-                      <SelectItem value="SISTEM_INFORMASI">
-                        Sistem Informasi
-                      </SelectItem>
-                      <SelectItem value="ILMU_KOMUNIKASI">
-                        Ilmu Komunikasi
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <FormDescription>
+                    Program studi kamu saat ini.
+                  </FormDescription>
+                  <FormControl>
+                    <Input placeholder="Masukkan program studi" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

@@ -14,25 +14,34 @@ datasource db {
 }
 
 model Recruitment {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   nama       String
-  email      String @unique
-  nim        String @unique
+  email      String   @unique
+  nim        String   @unique
   no_telepon String
   gender     Gender
   alamat     String
   motivasi   String
-  fakultas   String
-  prodi      Prodi
+  fakultas   Fakultas
+  prodi      String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-enum Prodi {
-  SISTEM_INFORMASI
-  TEKNIK_INFORMATIKA
-  ILMU_KOMUNIKASI
+enum Fakultas {
+  FKIP
+  FEB
+  FH
+  FT
+  FF
+  FP
+  FG
+  FAI
+  FIK
+  FK
+  FKG
+  FKI
 }
 
 enum Gender {

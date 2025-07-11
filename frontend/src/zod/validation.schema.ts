@@ -10,11 +10,21 @@ export const recruitmentSchema = z.object({
   gender: z.enum(["LAKI_LAKI", "PEREMPUAN"]),
   alamat: z.string().nonempty(),
   motivasi: z.string().nonempty(),
-  fakultas: z
-    .string()
-    .nonempty()
-    .default("FAKULTAS KOMUNIKASI DAN INFORMATIKA"),
-  prodi: z.enum(["SISTEM_INFORMASI", "TEKNIK_INFORMATIKA", "ILMU_KOMUNIKASI"]),
+  fakultas: z.enum([
+    "FKIP",
+    "FEB",
+    "FH",
+    "FT",
+    "FF",
+    "FP",
+    "FG",
+    "FAI",
+    "FIK",
+    "FK",
+    "FKG",
+    "FKI",
+  ]),
+  prodi: z.string().min(3),
 });
 
 export type RecruitmentSchema = z.infer<typeof recruitmentSchema>;
