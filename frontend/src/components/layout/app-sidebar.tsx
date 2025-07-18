@@ -1,3 +1,4 @@
+"use client";
 import {
   Sidebar,
   SidebarContent,
@@ -8,20 +9,23 @@ import {
 import { NavGroup } from "@/components/layout/nav-group";
 import { sidebarData } from "./data/sidebar-data";
 import logo from "../../../public/logo.png";
+import logoPutih from "../../../public/LOGO FOSTI PUTIH.png";
 import Image from "next/image";
 import LogoutBtn from "../LogoutBtn";
+import { useTheme } from "next-themes";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const theme = useTheme();
   return (
     <Sidebar collapsible="icon" variant="floating" {...props}>
       <SidebarHeader>
         <div className="w-full py-3">
           <Image
-            src={logo}
+            src={theme.theme === "light" ? logo : logoPutih}
             alt="logo"
             width={100}
             height={100}
-            className="mx-auto dark:invert"
+            className="mx-auto"
           />
         </div>
       </SidebarHeader>

@@ -55,6 +55,7 @@ const LoginForm = () => {
       toast.success("Login success");
     },
     onError: (error) => {
+      form.reset();
       toast.error(error.message);
       form.setError(
         "username",
@@ -66,7 +67,6 @@ const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     await mutateAsync(data);
   };
   return (
@@ -81,7 +81,7 @@ const LoginForm = () => {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="username"
@@ -136,19 +136,19 @@ const LoginForm = () => {
                 </FormItem>
               )}
             />
+            <div>
+              <Button
+                className="mt-2 w-full"
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                onClick={form.handleSubmit(onSubmit)}
+              >
+                {form.formState.isSubmitting ? "Loading..." : "Login"}
+              </Button>
+            </div>
           </form>
         </Form>
       </CardContent>
-      <CardFooter>
-        <Button
-          className="w-full"
-          type="submit"
-          disabled={form.formState.isSubmitting}
-          onClick={form.handleSubmit(onSubmit)}
-        >
-          {form.formState.isSubmitting ? "Loading..." : "Login"}
-        </Button>
-      </CardFooter>
     </Card>
   );
 };

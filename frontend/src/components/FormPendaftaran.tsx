@@ -31,12 +31,13 @@ import { Button } from "./ui/button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { recruitmentSchema, RecruitmentSchema } from "@/zod/validation.schema";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createRecord, sendEmail } from "@/utils/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const FormPendaftaran = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const form = useForm<RecruitmentSchema>({
     resolver: zodResolver(recruitmentSchema),
@@ -63,6 +64,7 @@ const FormPendaftaran = () => {
       }
     },
     onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["users"] });
       toast.success("Pendaftaran berhasil!");
       await sendEmail({
         email: form.getValues("email"),
