@@ -39,37 +39,16 @@ export const createRecruitment = async (req: Request, res: Response) => {
 };
 
 export const getAllRecruitment = async (req: Request, res: Response) => {
-  const {prodi, nama} = req.query;
+  const {limit, page} = req.query;
   try {
-    const allRecruitment = await prisma.recruitment.findMany();
-    if (nama) {
-      const recruitmentByName = allRecruitment.filter(
-        (recruitment) => recruitment.nama === nama
-      );
-      if (recruitmentByName.length === 0) {
-        res.status(404).json({message: "Data recruitment tidak ditemukan"});
-        return;
-      }
-      res.status(200).json({
-        message: "Data recruitment berhasil ditemukan",
-        data: recruitmentByName,
-      });
+    if (limit && isNaN(Number(limit))) {
+      res.status(400).json({message: "Limit harus berupa angka"});
       return;
     }
-    if (prodi) {
-      const recruitmentByProdi = allRecruitment.filter(
-        (recruitment) => recruitment.prodi === prodi
-      );
-      if (recruitmentByProdi.length === 0) {
-        res.status(404).json({message: "Data recruitment tidak ditemukan"});
-        return;
-      }
-      res.status(200).json({
-        message: "Data recruitment berhasil ditemukan",
-        data: recruitmentByProdi,
-      });
-      return;
-    }
+    const allRecruitment = await prisma.recruitment.findMany({
+      take: limit ? parseInt(limit as string) : 10,
+      skip: page ? (parseInt(page as string) - 1) * (limit ? parseInt(limit as string) : 10) : 0,
+    });
     if (allRecruitment.length === 0) {
       res.status(404).json({message: "Data recruitment masih kosong"});
       return;
@@ -77,6 +56,8 @@ export const getAllRecruitment = async (req: Request, res: Response) => {
     res.status(200).json({
       message: "Data recruitment berhasil ditemukan",
       data: allRecruitment,
+      total: allRecruitment.length,
+      page: parseInt(page as string)
     });
     return;
   } catch (error) {
