@@ -1,12 +1,12 @@
-import { Request, Response } from "express";
+import {Request, Response} from "express";
 import jwt from "jsonwebtoken";
-import { AuthSchema, authSchema } from "../zod/auth.schema";
-import { z } from "zod";
-import env from "../env";
+import {AuthSchema, authSchema} from "../zod/auth.schema";
+import {z} from "zod";
+import {env} from "../env";
 
 export const signIn = async (req: Request, res: Response) => {
   try {
-    const { username, password }: AuthSchema = authSchema.parse(req.body);
+    const {username, password}: AuthSchema = authSchema.parse(req.body);
 
     // Check if username and password is correct
     if (username === env.ADMIN_USERNAME && password === env.ADMIN_PASSWORD) {
@@ -33,7 +33,7 @@ export const signIn = async (req: Request, res: Response) => {
     return;
   } catch (error) {
     if (error instanceof z.ZodError) {
-      res.status(400).json({ message: error.errors });
+      res.status(400).json({message: error.errors});
       return;
     }
     res.status(500).json({

@@ -15,7 +15,7 @@ const data = Array.from({length: 100}).map((_, i) => ({
   alamat: faker.location.streetAddress(),
   motivasi: faker.lorem.paragraph(),
   fakultas: faker.helpers.enumValue(Fakultas),
-  createdAt: faker.date.past()
+  createdAt: faker.date.betweens({from: "2025-07-04T03:00:00", to: "2025-07-18T03:00:00"})[0]
 }))
 
 async function main() {

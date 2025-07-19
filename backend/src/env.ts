@@ -1,9 +1,14 @@
-const env = {
-  PORT: process.env.PORT as string,
-  MONGO_URI: process.env.DATABASE_URL as string,
-  JWT_SECRET: process.env.JWT_SECRET as string,
-  ADMIN_USERNAME: process.env.ADMIN_USERNAME as string,
-  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD as string,
-};
+import {z} from "zod";
 
-export default env;
+const envSchema = z.object({
+  PORT: z.string(),
+  DATABASE_URL: z.string(),
+  JWT_SECRET: z.string(),
+  ADMIN_USERNAME: z.string(),
+  ADMIN_PASSWORD: z.string(),
+  SERVICE_ID: z.string(),
+  TEMPLATE_ID: z.string(),
+  PUBLIC_KEY: z.string(),
+});
+
+export const env = envSchema.parse(process.env!)

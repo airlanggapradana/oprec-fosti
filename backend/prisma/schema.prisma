@@ -24,9 +24,16 @@ model Recruitment {
   motivasi   String
   fakultas   Fakultas
   prodi      String
+  status     Status   @default(PENDING)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum Status {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
 
 enum Fakultas {

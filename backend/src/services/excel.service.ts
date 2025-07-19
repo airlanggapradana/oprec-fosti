@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
-import env from "../env";
-import { MongoClient } from "mongodb";
+import {Request, Response} from "express";
+import {env} from "../env";
+import {MongoClient} from "mongodb";
 import ExcelJS from "exceljs";
 
 export const exportAsExcel = async (req: Request, res: Response) => {
-  const uri = env.MONGO_URI;
+  const uri = env.DATABASE_URL;
   const dbName = "OprecFosti";
   const collectionName = "Recruitment";
 
@@ -33,18 +33,18 @@ export const exportAsExcel = async (req: Request, res: Response) => {
       // Style the header row
       const headerRow = worksheet.getRow(1);
       headerRow.eachCell((cell) => {
-        cell.font = { bold: true, color: { argb: "FFFFFFFF" } }; // Bold and white font
+        cell.font = {bold: true, color: {argb: "FFFFFFFF"}}; // Bold and white font
         cell.fill = {
           type: "pattern",
           pattern: "solid",
-          fgColor: { argb: "FF4F81BD" }, // Blue background
+          fgColor: {argb: "FF4F81BD"}, // Blue background
         };
-        cell.alignment = { vertical: "middle", horizontal: "center" }; // Center alignment
+        cell.alignment = {vertical: "middle", horizontal: "center"}; // Center alignment
         cell.border = {
-          top: { style: "thin", color: { argb: "FF000000" } },
-          bottom: { style: "thin", color: { argb: "FF000000" } },
-          left: { style: "thin", color: { argb: "FF000000" } },
-          right: { style: "thin", color: { argb: "FF000000" } },
+          top: {style: "thin", color: {argb: "FF000000"}},
+          bottom: {style: "thin", color: {argb: "FF000000"}},
+          left: {style: "thin", color: {argb: "FF000000"}},
+          right: {style: "thin", color: {argb: "FF000000"}},
         };
       });
     }
@@ -58,12 +58,12 @@ export const exportAsExcel = async (req: Request, res: Response) => {
       const dataRow = worksheet.getRow(worksheet.rowCount);
       dataRow.eachCell((cell) => {
         cell.border = {
-          top: { style: "thin", color: { argb: "FF000000" } },
-          bottom: { style: "thin", color: { argb: "FF000000" } },
-          left: { style: "thin", color: { argb: "FF000000" } },
-          right: { style: "thin", color: { argb: "FF000000" } },
+          top: {style: "thin", color: {argb: "FF000000"}},
+          bottom: {style: "thin", color: {argb: "FF000000"}},
+          left: {style: "thin", color: {argb: "FF000000"}},
+          right: {style: "thin", color: {argb: "FF000000"}},
         };
-        cell.alignment = { vertical: "middle", horizontal: "center" };
+        cell.alignment = {vertical: "middle", horizontal: "center"};
       });
     });
 

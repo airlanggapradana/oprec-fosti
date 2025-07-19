@@ -25,6 +25,7 @@ export const recruitmentSchema = z.object({
     "FKI"
   ]),
   prodi: z.string().min(3),
+  status: z.enum(['PENDING', 'ACCEPTED', 'REJECTED']).optional(),
 });
 
 export type RecruitmentSchema = z.infer<typeof recruitmentSchema>;
