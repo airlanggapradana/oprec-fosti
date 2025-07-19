@@ -6,9 +6,6 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
   ADMIN_USERNAME: z.string(),
   ADMIN_PASSWORD: z.string(),
-  SERVICE_ID: z.string(),
-  TEMPLATE_ID: z.string(),
-  PUBLIC_KEY: z.string(),
 });
 
 export const env = envSchema.parse(process.env!)
