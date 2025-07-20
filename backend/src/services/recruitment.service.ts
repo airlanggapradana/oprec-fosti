@@ -48,6 +48,7 @@ export const getAllRecruitment = async (req: Request, res: Response) => {
     const allRecruitment = await prisma.recruitment.findMany({
       take: limit ? parseInt(limit as string) : 10,
       skip: page ? (parseInt(page as string) - 1) * (limit ? parseInt(limit as string) : 10) : 0,
+      orderBy: {createdAt: "desc"}
     });
     if (allRecruitment.length === 0) {
       res.status(404).json({message: "Data recruitment masih kosong"});
