@@ -14,20 +14,39 @@ datasource db {
 }
 
 model Recruitment {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
   nama       String
-  email      String   @unique
-  nim        String   @unique
+  email      String    @unique
+  nim        String    @unique
   no_telepon String
   gender     Gender
   alamat     String
   motivasi   String
   fakultas   Fakultas
   prodi      String
-  status     Status   @default(PENDING)
+  status     Status    @default(PENDING)
+  presensi   Presensi?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Presensi {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  id_recruitment String          @unique @db.ObjectId
+  nama           String
+  waktu_datang   DateTime?
+  status         StatusPresensi?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  recruitment Recruitment @relation(fields: [id_recruitment], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+enum StatusPresensi {
+  HADIR
+  TIDAK_HADIR
+  IZIN
 }
 
 enum Status {
