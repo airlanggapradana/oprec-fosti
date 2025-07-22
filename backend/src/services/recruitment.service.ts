@@ -47,12 +47,18 @@ export const getAllRecruitment = async (req: Request, res: Response) => {
     }
     let allRecruitment = await prisma.recruitment.findMany({
       orderBy: {createdAt: "desc"},
+      include: {
+        presensi: true
+      }
     });
     if (limit && page) {
       allRecruitment = await prisma.recruitment.findMany({
         take: limit ? parseInt(limit as string) : 10,
         skip: page ? (parseInt(page as string) - 1) * (limit ? parseInt(limit as string) : 10) : 0,
-        orderBy: {createdAt: "desc"}
+        orderBy: {createdAt: "desc"},
+        include: {
+          presensi: true
+        }
       });
     }
     if (allRecruitment.length === 0) {
