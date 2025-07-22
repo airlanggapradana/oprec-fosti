@@ -52,7 +52,10 @@ export const exportAsExcel = async (req: Request, res: Response) => {
 
     // Add data rows to the worksheet
     documents.forEach((doc) => {
-      const row = Object.values(doc);
+      const row = Object.keys(doc).map((key) => {
+        const value = doc[key];
+        return value === null || value === undefined ? "NULL" : value;
+      });
       worksheet.addRow(row);
 
       // Style the data rows
