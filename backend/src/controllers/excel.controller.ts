@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { exportAsExcel } from "../services/excel.service";
+import {Router} from "express";
+import {exportAsExcel} from "../services/excel.service";
 
 const router = Router();
 
-router.get("/export", exportAsExcel);
+router.get("/export/:exportType", exportAsExcel);
 
 export default router;

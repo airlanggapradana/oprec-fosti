@@ -4,9 +4,10 @@ import {MongoClient} from "mongodb";
 import ExcelJS from "exceljs";
 
 export const exportAsExcel = async (req: Request, res: Response) => {
+  const {exportType} = req.params;
   const uri = env.DATABASE_URL;
   const dbName = "OprecFosti";
-  const collectionName = "Recruitment";
+  const collectionName = exportType;
 
   const client = new MongoClient(uri);
 
