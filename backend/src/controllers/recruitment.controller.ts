@@ -11,7 +11,7 @@ const router = Router();
 
 router.post("/", createRecruitment);
 router.get("/", authMiddleware, getAllRecruitment);
-router.get("/:nim", authMiddleware, getRecruitmentByNIM);
+router.get("/:nim", getRecruitmentByNIM);
 router.delete("/:id", authMiddleware, deleteRecruitment);
 router.put("/:id", authMiddleware, updateRecruitment);
 router.put("/seleksi/:id", authMiddleware, prosesSeleksi);

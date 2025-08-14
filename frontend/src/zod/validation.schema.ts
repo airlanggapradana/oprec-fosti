@@ -27,4 +27,9 @@ export const recruitmentSchema = z.object({
   prodi: z.string().min(3),
 });
 
+export const checkRegistrationSchema = z.object({
+  nim: z.string().min(3).max(255),
+});
+
+export type CheckRegistrationSchema = z.infer<typeof checkRegistrationSchema>;
 export type RecruitmentSchema = z.infer<typeof recruitmentSchema>;

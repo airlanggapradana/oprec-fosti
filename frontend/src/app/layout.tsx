@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className="scroll-smooth bg-background text-foreground antialiased">
         <ReactQueryProvider>
           <ThemeProvider attribute={"class"} defaultTheme="dark" enableSystem>
-            <MouseMoveEffect />
+            {/*<MouseMoveEffect />*/}
             <Navbar />
             {children}
             <Toaster />
