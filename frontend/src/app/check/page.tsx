@@ -62,7 +62,7 @@ const CheckPendaftaranPage = () => {
     }
   };
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 dark:from-gray-900 dark:to-gray-800">
+    <div className="flex h-screen items-center justify-center">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-gray-800 dark:text-gray-100">
@@ -73,6 +73,12 @@ const CheckPendaftaranPage = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {form.formState.errors.root && (
+            <div className="mb-4 rounded-lg bg-red-50 p-4 text-red-800 dark:bg-red-900/20 dark:text-red-200">
+              <p className="font-semibold">Error:</p>
+              <p>{form.formState.errors.root.message}</p>
+            </div>
+          )}
           <Form {...form}>
             <form className={"space-y-5"}>
               <FormField
