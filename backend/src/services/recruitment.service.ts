@@ -78,6 +78,32 @@ export const getAllRecruitment = async (req: Request, res: Response) => {
   }
 };
 
+export const getRecruitmentByNIM = async (req: Request, res: Response) => {
+  try {
+    const {nim} = req.params;
+    const recruitment = await prisma.recruitment.findFirst({
+      where: {nim}
+    })
+    if (!recruitment) {
+      res.status(404).send({
+        message: "Data recruitment tidak ditemukan",
+      })
+      return
+    }
+    res.status(200).json({
+      message: "Data recruitment berhasil ditemukan",
+      data: recruitment,
+    });
+    return
+  } catch (e) {
+    res.status(500).send({
+      message: "Internal server error",
+      error: e instanceof Error ? e.message : "Unknown error",
+    })
+    return
+  }
+}
+
 export const deleteRecruitment = async (req: Request, res: Response) => {
   const {id} = req.params;
   try {
