@@ -1,21 +1,22 @@
-import {PrismaClient} from '@prisma/client';
+import {PrismaClient, Status} from '@prisma/client';
 import {faker} from '@faker-js/faker';
 import {Fakultas} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 
-const data = Array.from({length: 100}).map((_, i) => ({
+const data = Array.from({length: 200}).map((_, i) => ({
   nama: faker.person.fullName(),
   prodi: faker.lorem.sentence(1),
   email: faker.internet.email(),
   nim: faker.string.numeric(10),
   no_telepon: faker.phone.number(),
+  status: "ACCEPTED" as Status,
   gender: faker.helpers.arrayElement(["LAKI_LAKI", "PEREMPUAN"]),
   alamat: faker.location.streetAddress(),
   motivasi: faker.lorem.paragraph(),
   fakultas: faker.helpers.enumValue(Fakultas),
-  createdAt: faker.date.betweens({from: "2025-07-04T03:00:00", to: "2025-07-18T03:00:00"})[0]
+  createdAt: faker.date.betweens({from: "2025-07-01T03:00:00", to: "2025-07-28T03:00:00"})[0]
 }))
 
 async function main() {

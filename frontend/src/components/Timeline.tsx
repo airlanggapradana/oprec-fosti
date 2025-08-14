@@ -2,36 +2,54 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { CalendarDays, FileCheck, Trophy, Users } from "lucide-react";
+import { IoChatbubblesOutline } from "react-icons/io5";
+import { RxPencil2 } from "react-icons/rx";
 
 const timelines = [
   {
     icon: <CalendarDays className="h-6 w-6 text-white" />,
     title: "Periode Pendaftaran",
-    date: "March 1 - March 15, 2024",
-    description: "Kirim pendaftaranmu sekarang juga",
+    date: "26 Agustus 2025 - 11 September, 2025",
+    description: "Kirim pendaftaranmu dalam rentang waktu tersebut",
     gradient: "from-teal-400 to-teal-600 dark:from-teal-500 dark:to-teal-300",
     isLeft: true,
   },
   {
     icon: <FileCheck className="h-6 w-6 text-white" />,
-    title: "Review Berkas Pendaftaran",
-    date: "March 16 - March 31, 2024",
-    description: "Kita akan meninjau berkas pendaftaranmu",
+    title: "Technical Meeting",
+    date: "12 September 2025",
+    description: "Technical meeting untuk menjelaskan proses rekrutmen",
     gradient: "from-teal-500 to-teal-600 dark:from-teal-500 dark:to-teal-300",
     isLeft: false,
   },
   {
     icon: <Users className="h-6 w-6 text-white" />,
-    title: "Interviews",
-    date: "April 1 - April 15, 2024",
-    description: "Kandidat yang lolos akan dihubungi untuk interview",
+    title: "Grand Opening",
+    date: "14 September 2025",
+    description: "Acara pembukaan rekrutmen anggota baru",
     gradient: "from-teal-500 to-teal-600 dark:from-teal-500 dark:to-teal-300",
     isLeft: true,
   },
   {
+    icon: <IoChatbubblesOutline className="h-6 w-6 text-white" />,
+    title: "Wawancara",
+    date: "20-21 September 2025",
+    description: "Wawancara untuk calon anggota baru",
+    gradient: "from-teal-600 to-teal-500 dark:from-teal-500 dark:to-teal-300",
+    isLeft: false,
+  },
+  {
+    icon: <RxPencil2 className="h-6 w-6 text-white" />,
+    title: "Screening",
+    date: "27-28 September 2025",
+    description: "Screening kelayakan calon anggota baru",
+    gradient: "from-teal-600 to-teal-500 dark:from-teal-500 dark:to-teal-300",
+    isLeft: true,
+  },
+  {
     icon: <Trophy className="h-6 w-6 text-white" />,
-    title: "Seleksi Akhir",
-    date: "April 20, 2024",
+    title: "Pengumuman",
+    date: "30 September 2025",
     description: "Pengumuman anggota baru",
     gradient: "from-teal-600 to-teal-500 dark:from-teal-500 dark:to-teal-300",
     isLeft: false,
