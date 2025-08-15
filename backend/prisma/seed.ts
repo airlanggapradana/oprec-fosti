@@ -11,12 +11,12 @@ const data = Array.from({length: 200}).map((_, i) => ({
   email: faker.internet.email(),
   nim: faker.string.numeric(10),
   no_telepon: faker.phone.number(),
-  status: "ACCEPTED" as Status,
+  status: "PENDING" as Status,
   gender: faker.helpers.arrayElement(["LAKI_LAKI", "PEREMPUAN"]),
   alamat: faker.location.streetAddress(),
   motivasi: faker.lorem.paragraph(),
   fakultas: faker.helpers.enumValue(Fakultas),
-  createdAt: faker.date.betweens({from: "2025-07-01T03:00:00", to: "2025-07-28T03:00:00"})[0]
+  createdAt: faker.date.betweens({from: "2025-08-04T03:00:00", to: "2025-08-14T03:00:00"})[0]
 }))
 
 async function main() {

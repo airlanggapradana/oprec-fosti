@@ -9,7 +9,7 @@ const timelines = [
   {
     icon: <CalendarDays className="h-6 w-6 text-white" />,
     title: "Periode Pendaftaran",
-    date: "26 Agustus 2025 - 11 September, 2025",
+    date: "25 Agustus 2025 - 11 September, 2025",
     description: "Kirim pendaftaranmu dalam rentang waktu tersebut",
     gradient: "from-teal-400 to-teal-600 dark:from-teal-500 dark:to-teal-300",
     isLeft: true,
@@ -58,7 +58,10 @@ const timelines = [
 
 const Timeline = () => {
   return (
-    <section id="faq" className="container mx-auto space-y-16 py-24 md:py-32">
+    <section
+      id="timeline"
+      className="container mx-auto space-y-16 py-24 md:py-32"
+    >
       <h2 className="mb-12 bg-gradient-to-b from-teal-500 to-teal-600 bg-clip-text text-center text-3xl font-bold tracking-tighter text-transparent dark:bg-gradient-to-t dark:from-teal-300 dark:to-teal-100 sm:text-4xl md:text-5xl">
         Recruitment Timeline
       </h2>

@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { TextAnimate } from "./magicui/text-animate";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import HeroVideoDialog from "./magicui/hero-video-dialog";
 import { ShineBorder } from "./magicui/shine-border";
 

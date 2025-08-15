@@ -20,7 +20,7 @@ import { useTheme } from "next-themes";
 const navigations = [
   { name: "Home", href: "#home" },
   { name: "Tutorial", href: "#tutorial" },
-  { name: "FAQ", href: "#faq" },
+  { name: "Timeline", href: "#timeline" },
 ];
 
 export default function Navbar() {
