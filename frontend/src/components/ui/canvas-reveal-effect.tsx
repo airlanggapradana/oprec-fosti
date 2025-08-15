@@ -24,7 +24,7 @@ export const CanvasRevealEffect = ({
   showGradient?: boolean;
 }) => {
   return (
-    <div className={cn("h-full relative bg-white w-full", containerClassName)}>
+    <div className={cn("relative h-full w-full bg-white", containerClassName)}>
       <div className="h-full w-full">
         <DotMatrix
           colors={colors ?? [[0, 255, 255]]}
@@ -97,9 +97,9 @@ const DotMatrix: React.FC<DotMatrixProps> = ({
     return {
       u_colors: {
         value: colorsArray.map((color) => [
-          color[0] / 255,
-          color[1] / 255,
-          color[2] / 255,
+          (color?.[0] ?? 0) / 255,
+          (color?.[1] ?? 0) / 255,
+          (color?.[2] ?? 0) / 255,
         ]),
         type: "uniform3fv",
       },
@@ -175,12 +175,13 @@ const DotMatrix: React.FC<DotMatrixProps> = ({
   );
 };
 
-type Uniforms = {
-  [key: string]: {
+type Uniforms = Record<
+  string,
+  {
     value: number[] | number[][] | number;
     type: string;
-  };
-};
+  }
+>;
 const ShaderMaterial = ({
   source,
   uniforms,
@@ -229,8 +230,9 @@ const ShaderMaterial = ({
           break;
         case "uniform3fv":
           preparedUniforms[uniformName] = {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
             value: uniform.value.map((v: number[]) =>
-              new THREE.Vector3().fromArray(v)
+              new THREE.Vector3().fromArray(v),
             ),
             type: "3fv",
           };
@@ -247,8 +249,8 @@ const ShaderMaterial = ({
       }
     }
 
-    preparedUniforms["u_time"] = { value: 0, type: "1f" };
-    preparedUniforms["u_resolution"] = {
+    preparedUniforms.u_time = { value: 0, type: "1f" };
+    preparedUniforms.u_resolution = {
       value: new THREE.Vector2(size.width * 2, size.height * 2),
     }; // Initialize u_resolution
     return preparedUniforms;
@@ -279,7 +281,7 @@ const ShaderMaterial = ({
     });
 
     return materialObject;
-  }, [size.width, size.height, source]);
+  }, [source, getUniforms]);
 
   return (
     <mesh ref={ref as any}>
@@ -291,18 +293,19 @@ const ShaderMaterial = ({
 
 const Shader: React.FC<ShaderProps> = ({ source, uniforms, maxFps = 60 }) => {
   return (
-    <Canvas className="absolute inset-0  h-full w-full">
+    <Canvas className="absolute inset-0 h-full w-full">
       <ShaderMaterial source={source} uniforms={uniforms} maxFps={maxFps} />
     </Canvas>
   );
 };
 interface ShaderProps {
   source: string;
-  uniforms: {
-    [key: string]: {
+  uniforms: Record<
+    string,
+    {
       value: number[] | number[][] | number;
       type: string;
-    };
-  };
+    }
+  >;
   maxFps?: number;
 }
