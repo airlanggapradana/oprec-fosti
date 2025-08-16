@@ -6,6 +6,7 @@ import { type Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import ReactQueryProvider from "@/lib/ReactQuery";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/next";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -24,10 +25,11 @@ export default function RootLayout({
     >
       <body className="scroll-smooth bg-background text-foreground antialiased">
         <ReactQueryProvider>
-          <ThemeProvider attribute={"class"} defaultTheme="dark" enableSystem>
+          <ThemeProvider attribute={"class"} defaultTheme="light" enableSystem>
             {/*<MouseMoveEffect />*/}
             <Navbar />
             {children}
+            <Analytics />
             <Toaster />
           </ThemeProvider>
         </ReactQueryProvider>
