@@ -8,6 +8,7 @@ import ReactQueryProvider from "@/lib/ReactQuery";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/next";
 import React from "react";
+import CountdownPage from "@/components/Countdown";
 
 export const metadata: Metadata = {
   title: "Oprec Fosti 2025",
@@ -17,6 +18,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const currentDate = new Date();
+  const eventDate = new Date("2025-08-25T00:00:00");
+  const showCountdown = currentDate <= eventDate;
+
   return (
     <html
       suppressHydrationWarning
@@ -27,10 +32,16 @@ export default function RootLayout({
         <ReactQueryProvider>
           <ThemeProvider attribute={"class"} defaultTheme="light" enableSystem>
             {/*<MouseMoveEffect />*/}
-            <Navbar />
-            {children}
-            <Analytics />
-            <Toaster />
+            {showCountdown ? (
+              <CountdownPage />
+            ) : (
+              <>
+                <Navbar />
+                {children}
+                <Analytics />
+                <Toaster />
+              </>
+            )}
           </ThemeProvider>
         </ReactQueryProvider>
       </body>
