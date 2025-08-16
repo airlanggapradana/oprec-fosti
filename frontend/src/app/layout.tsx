@@ -6,11 +6,11 @@ import { type Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import ReactQueryProvider from "@/lib/ReactQuery";
 import { Toaster } from "@/components/ui/sonner";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Oprec Fosti 2025",
   description: "Website Open Recruitment FOSTI 2025",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
 export default function RootLayout({
