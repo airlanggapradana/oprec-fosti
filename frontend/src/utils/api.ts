@@ -62,7 +62,11 @@ export const createRecord = async (payload: RecruitmentSchema) => {
 //   }
 // };
 
-export const sendEmail = async (payload: { email: string; nama: string }) => {
+export const sendEmail = async (payload: {
+  email: string;
+  nama: string;
+  nim: string;
+}) => {
   try {
     const response = await axios.post(
       "https://api.emailjs.com/api/v1.0/email/send",
@@ -73,6 +77,7 @@ export const sendEmail = async (payload: { email: string; nama: string }) => {
         template_params: {
           nama: payload.nama,
           email: payload.email,
+          nim: payload.nim,
         },
       },
       {

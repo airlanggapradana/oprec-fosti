@@ -69,6 +69,7 @@ const FormPendaftaran = () => {
       await sendEmail({
         email: form.getValues("email"),
         nama: form.getValues("nama"),
+        nim: form.getValues("nim"),
       });
       form.reset();
       router.push("/pendaftaran/success");
