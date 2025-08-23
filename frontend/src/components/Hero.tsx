@@ -69,15 +69,15 @@ const Hero = () => {
           <HeroVideoDialog
             className="block dark:hidden"
             animationStyle="from-center"
-            videoSrc="https://www.youtube.com/embed/Mh4lx5Yl3bs?si=dy_P_tOJKvqHSOoE"
-            thumbnailSrc="https://i.ytimg.com/vi_webp/Mh4lx5Yl3bs/maxresdefault.webp"
+            videoSrc="https://www.youtube.com/embed/DxwXP8rp5qg?si=N_ktJCWXq1c9U430"
+            thumbnailSrc="https://i9.ytimg.com/vi_webp/DxwXP8rp5qg/maxresdefault.webp?v=68a984dc&sqp=CMSWpsUG&rs=AOn4CLAGKI52DKgiZNp5EzPl2B0e8bQ1LQ"
             thumbnailAlt="Hero Video"
           />
           <HeroVideoDialog
             className="hidden dark:block"
             animationStyle="from-center"
-            videoSrc="https://www.youtube.com/embed/Mh4lx5Yl3bs?si=dy_P_tOJKvqHSOoE"
-            thumbnailSrc="https://i.ytimg.com/vi_webp/Mh4lx5Yl3bs/maxresdefault.webp"
+            videoSrc="https://www.youtube.com/embed/DxwXP8rp5qg?si=N_ktJCWXq1c9U430"
+            thumbnailSrc="https://i9.ytimg.com/vi_webp/DxwXP8rp5qg/maxresdefault.webp?v=68a984dc&sqp=CMSWpsUG&rs=AOn4CLAGKI52DKgiZNp5EzPl2B0e8bQ1LQ"
             thumbnailAlt="Hero Video"
           />
         </div>

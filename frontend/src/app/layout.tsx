@@ -20,7 +20,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const currentDate = new Date();
   const eventDate = new Date("2025-08-25T00:00:00");
-  const showCountdown = currentDate <= eventDate;
+  const showCountdown = currentDate < eventDate;
 
   return (
     <html

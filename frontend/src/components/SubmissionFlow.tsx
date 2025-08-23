@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   AnimatedSpan,
@@ -6,8 +7,12 @@ import {
 } from "@/components/magicui/terminal";
 import { TypingAnimation as Typing } from "./magicui/typing-animation";
 import HeroVideoDialog from "./magicui/hero-video-dialog";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { Book } from "lucide-react";
 
 const SubmissionFlow = () => {
+  const router = useRouter();
   return (
     <section
       id="tutorial"
@@ -19,17 +24,33 @@ const SubmissionFlow = () => {
       <div className="mx-auto max-w-6xl px-5 md:px-0">
         <div className="mb-14 flex flex-col items-start gap-6 md:flex-row md:gap-9">
           <TerminalCard />
-          <Typing
-            as={"p"}
-            startOnView
-            duration={20}
-            className="text-center text-lg font-medium leading-relaxed tracking-tight text-muted-foreground md:text-start"
-          >
-            Merupakan tata cara pendaftaran yang dapat kamu lakukan jika
-            tertarik bergabung dengan FOSTI. Jika kamu mengalami kesulitan,
-            jangan ragu untuk menghubungi kami melalui kontak yang tersedia yaa
-            ❤️.
-          </Typing>
+          <div className={"flex w-full flex-col gap-3"}>
+            <Typing
+              as={"p"}
+              startOnView
+              duration={20}
+              className="text-center text-lg font-medium leading-relaxed tracking-tight text-muted-foreground md:text-start"
+            >
+              Merupakan tata cara pendaftaran yang dapat kamu lakukan jika
+              tertarik bergabung dengan FOSTI. Jika kamu mengalami kesulitan,
+              jangan ragu untuk menghubungi kami melalui kontak yang tersedia
+              yaa ❤️.
+            </Typing>
+            <Button
+              variant={"secondary"}
+              onClick={() =>
+                router.push(
+                  "https://drive.google.com/file/d/1SlhOv7AvidG6diLpT9Sh11FehJuOheVf/view?usp=drivesdk",
+                )
+              }
+              className={
+                "bg-gradient-to-b from-teal-300 to-emerald-600 py-6 text-base font-semibold text-gray-100 transition-colors hover:from-teal-400 hover:to-emerald-700 md:text-lg"
+              }
+            >
+              <Book className={"h-6 w-6"} />
+              Guidebook 2025
+            </Button>
+          </div>
         </div>
 
         <div className="relative mt-16">
