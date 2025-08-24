@@ -6,6 +6,7 @@ import { TextAnimate } from "./magicui/text-animate";
 import { useRouter } from "next/navigation";
 import HeroVideoDialog from "./magicui/hero-video-dialog";
 import { ShineBorder } from "./magicui/shine-border";
+import thumbnail from "../../public/thumbnail compro fosti 2025.webp";
 
 const Hero = () => {
   const router = useRouter();
@@ -70,14 +71,14 @@ const Hero = () => {
             className="block dark:hidden"
             animationStyle="from-center"
             videoSrc="https://www.youtube.com/embed/DxwXP8rp5qg?si=N_ktJCWXq1c9U430"
-            thumbnailSrc="https://i9.ytimg.com/vi_webp/DxwXP8rp5qg/maxresdefault.webp?v=68a984dc&sqp=CMSWpsUG&rs=AOn4CLAGKI52DKgiZNp5EzPl2B0e8bQ1LQ"
+            thumbnailSrc={thumbnail.src}
             thumbnailAlt="Hero Video"
           />
           <HeroVideoDialog
             className="hidden dark:block"
             animationStyle="from-center"
             videoSrc="https://www.youtube.com/embed/DxwXP8rp5qg?si=N_ktJCWXq1c9U430"
-            thumbnailSrc="https://i9.ytimg.com/vi_webp/DxwXP8rp5qg/maxresdefault.webp?v=68a984dc&sqp=CMSWpsUG&rs=AOn4CLAGKI52DKgiZNp5EzPl2B0e8bQ1LQ"
+            thumbnailSrc={thumbnail.src}
             thumbnailAlt="Hero Video"
           />
         </div>
