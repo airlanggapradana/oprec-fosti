@@ -11,8 +11,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, Star, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function CountdownPage() {
+  const router = useRouter();
   // Set your event date here - currently set to New Year 2025
   const eventDate = new Date("2025-08-25T00:00:00");
   const eventName = "Oprec Fosti 2025 Registration Opens!";
@@ -89,6 +91,7 @@ export default function CountdownPage() {
               <Button
                 size="lg"
                 className="bg-yellow-500 font-semibold text-black hover:bg-yellow-600"
+                onClick={() => router.push("/")}
               >
                 <Star className="mr-2 h-5 w-5" />
                 Register Now!
