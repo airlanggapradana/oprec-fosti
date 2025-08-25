@@ -40,7 +40,7 @@ const SubmissionFlow = () => {
               variant={"secondary"}
               onClick={() =>
                 router.push(
-                  "https://drive.google.com/file/d/1SlhOv7AvidG6diLpT9Sh11FehJuOheVf/view?usp=drivesdk",
+                  "https://drive.google.com/file/d/1TV1ieBvcFtviyWtEdzt0vXokdPNZJ51h/view",
                 )
               }
               className={
