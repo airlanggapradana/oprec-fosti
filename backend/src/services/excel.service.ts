@@ -30,8 +30,10 @@ export const exportAsExcel = async (req: Request, res: Response) => {
     if (documents.length > 0) {
       const headers = Object.keys(documents[0]);
 
-      // Tambahin 2 kolom tambahan
-      headers.push("Up Twibbon", "Up Video");
+      // ✅ Tambah kolom hanya kalau Recruitment
+      if (exportType === "Recruitment") {
+        headers.push("Up Twibbon", "Up Video");
+      }
 
       worksheet.addRow(headers);
 
@@ -61,38 +63,41 @@ export const exportAsExcel = async (req: Request, res: Response) => {
         return value === null || value === undefined ? "NULL" : value;
       });
 
-      // Tambahin default value checkbox kosong (☐)
-      row.push("☐", "☐");
+      // ✅ Tambah default checkbox hanya kalau Recruitment
+      if (exportType === "Recruitment") {
+        row.push("☐", "☐");
+      }
 
       worksheet.addRow(row);
 
-      // === 3. Kasih data validation dropdown ke kolom terakhir ===
-// Misalnya kolom ke-n dan ke-(n+1) adalah "Up Twibbon" & "Up Video"
-      const lastColIndex = worksheet.getRow(1).cellCount;
-      const twibbonCol = lastColIndex - 1;
-      const videoCol = lastColIndex;
+      // === Kasih data validation dropdown hanya kalau Recruitment ===
+      if (exportType === "Recruitment") {
+        const lastColIndex = worksheet.getRow(1).cellCount;
+        const twibbonCol = lastColIndex - 1;
+        const videoCol = lastColIndex;
 
-// Dropdown untuk "Up Twibbon"
-      worksheet.getColumn(twibbonCol).eachCell((cell, rowNumber) => {
-        if (rowNumber > 1) { // skip header
-          cell.dataValidation = {
-            type: "list",
-            allowBlank: true,
-            formulae: ['"☐,☑"'],
-          };
-        }
-      });
+        // Dropdown + style untuk "Up Twibbon"
+        worksheet.getColumn(twibbonCol).eachCell((cell, rowNumber) => {
+          if (rowNumber > 1) {
+            cell.dataValidation = {
+              type: "list",
+              allowBlank: true,
+              formulae: ['"☐,☑"'],
+            };
+          }
+        });
 
-// Dropdown untuk "Up Video"
-      worksheet.getColumn(videoCol).eachCell((cell, rowNumber) => {
-        if (rowNumber > 1) {
-          cell.dataValidation = {
-            type: "list",
-            allowBlank: true,
-            formulae: ['"☐,☑"'],
-          };
-        }
-      });
+        // Dropdown + style untuk "Up Video"
+        worksheet.getColumn(videoCol).eachCell((cell, rowNumber) => {
+          if (rowNumber > 1) {
+            cell.dataValidation = {
+              type: "list",
+              allowBlank: true,
+              formulae: ['"☐,☑"'],
+            };
+          }
+        });
+      }
 
       // Style the data rows
       const dataRow = worksheet.getRow(worksheet.rowCount);
