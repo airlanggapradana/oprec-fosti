@@ -9,7 +9,7 @@ const timelines = [
   {
     icon: <CalendarDays className="h-6 w-6 text-white" />,
     title: "Periode Pendaftaran",
-    date: "25 Agustus 2025 - 11 September, 2025",
+    date: "25 - 31 Agustus 2025",
     description: "Kirim pendaftaranmu dalam rentang waktu tersebut",
     gradient: "from-teal-400 to-teal-600 dark:from-teal-500 dark:to-teal-300",
     isLeft: true,
@@ -38,21 +38,21 @@ const timelines = [
     gradient: "from-teal-600 to-teal-500 dark:from-teal-500 dark:to-teal-300",
     isLeft: false,
   },
-  {
-    icon: <RxPencil2 className="h-6 w-6 text-white" />,
-    title: "Screening",
-    date: "27-28 September 2025",
-    description: "Screening kelayakan calon anggota baru",
-    gradient: "from-teal-600 to-teal-500 dark:from-teal-500 dark:to-teal-300",
-    isLeft: true,
-  },
+  // {
+  //   icon: <RxPencil2 className="h-6 w-6 text-white" />,
+  //   title: "Screening",
+  //   date: "27-28 September 2025",
+  //   description: "Screening kelayakan calon anggota baru",
+  //   gradient: "from-teal-600 to-teal-500 dark:from-teal-500 dark:to-teal-300",
+  //   isLeft: true,
+  // },
   {
     icon: <Trophy className="h-6 w-6 text-white" />,
     title: "Pengumuman",
     date: "30 September 2025",
     description: "Pengumuman anggota baru",
     gradient: "from-teal-600 to-teal-500 dark:from-teal-500 dark:to-teal-300",
-    isLeft: false,
+    isLeft: true,
   },
 ];
 
