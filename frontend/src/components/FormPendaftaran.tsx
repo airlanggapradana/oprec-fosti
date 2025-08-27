@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -36,7 +36,10 @@ import { createRecord, sendEmail } from "@/utils/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
+const DISABLE_AFTER = new Date("2025-08-31T16:59:59+07:00"); // set your target datetime (WIB, UTC+7)
+
 const FormPendaftaran = () => {
+  const [isDisabled, setIsDisabled] = useState(false);
   const queryClient = useQueryClient();
   const router = useRouter();
   const form = useForm<RecruitmentSchema>({
@@ -85,6 +88,15 @@ const FormPendaftaran = () => {
     },
   });
 
+  useEffect(() => {
+    const checkDisabled = () => {
+      setIsDisabled(new Date() > DISABLE_AFTER);
+    };
+    checkDisabled();
+    const interval = setInterval(checkDisabled, 60 * 1000); // check every minute
+    return () => clearInterval(interval);
+  }, []);
+
   const onSubmit: SubmitHandler<RecruitmentSchema> = async (data) => {
     await mutateAsync(data);
   };
@@ -98,6 +110,22 @@ const FormPendaftaran = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="text-start">
+        {isDisabled && (
+          <div className="mb-4 rounded-md bg-red-100 p-4">
+            <div className="flex">
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-red-800">
+                  Pendaftaran Ditutup
+                </h3>
+                <div className="mt-2 text-sm text-red-700">
+                  Sorry yee! 😅, pendaftarannya udah ditutup nihh. Makasih
+                  banget yang udah daftar 🙏! Kita tunggu di grand opening yaa!
+                  🎉
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
@@ -110,7 +138,11 @@ const FormPendaftaran = () => {
                     Nama lengkap ya jangan panggilan.
                   </FormDescription>
                   <FormControl>
-                    <Input placeholder="Masukkan nama lengkap" {...field} />
+                    <Input
+                      placeholder="Masukkan nama lengkap"
+                      {...field}
+                      disabled={isDisabled}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -124,7 +156,11 @@ const FormPendaftaran = () => {
                   <FormLabel>NIM</FormLabel>
                   <FormDescription>NIM kamu yg ada di KTM</FormDescription>
                   <FormControl>
-                    <Input placeholder="Masukkan NIM" {...field} />
+                    <Input
+                      placeholder="Masukkan NIM"
+                      {...field}
+                      disabled={isDisabled}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -144,6 +180,7 @@ const FormPendaftaran = () => {
                       type="email"
                       placeholder="Masukkan email"
                       {...field}
+                      disabled={isDisabled}
                     />
                   </FormControl>
                   <FormMessage />
@@ -164,6 +201,7 @@ const FormPendaftaran = () => {
                       placeholder="Masukkan nomor telepon"
                       {...field}
                       type="tel"
+                      disabled={isDisabled}
                     />
                   </FormControl>
                   <FormMessage />
@@ -181,6 +219,7 @@ const FormPendaftaran = () => {
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                       className="flex flex-col space-y-1"
+                      disabled={isDisabled}
                     >
                       <FormItem className="flex items-center space-x-3 space-y-0">
                         <FormControl>
@@ -214,6 +253,7 @@ const FormPendaftaran = () => {
                       placeholder="Masukkan alamat lengkap"
                       className="resize-none"
                       {...field}
+                      disabled={isDisabled}
                     />
                   </FormControl>
                   <FormMessage />
@@ -234,6 +274,7 @@ const FormPendaftaran = () => {
                       placeholder="Tuliskan motivasi kamu untuk mendaftar di sini"
                       className="resize-none"
                       {...field}
+                      disabled={isDisabled}
                     />
                   </FormControl>
                   <FormMessage />
@@ -250,6 +291,7 @@ const FormPendaftaran = () => {
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                    disabled={isDisabled}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -297,7 +339,11 @@ const FormPendaftaran = () => {
                     Program studi kamu saat ini.
                   </FormDescription>
                   <FormControl>
-                    <Input placeholder="Masukkan program studi" {...field} />
+                    <Input
+                      placeholder="Masukkan program studi"
+                      {...field}
+                      disabled={isDisabled}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -311,7 +357,7 @@ const FormPendaftaran = () => {
           type="submit"
           onClick={form.handleSubmit(onSubmit)}
           className="w-full"
-          disabled={form.formState.isSubmitting}
+          disabled={form.formState.isSubmitting || isDisabled}
         >
           {form.formState.isSubmitting ? "Loading..." : "Daftar"}
         </Button>
