@@ -62,7 +62,7 @@ export const getAllRecruitment = async (req: Request, res: Response) => {
       });
     }
     if (allRecruitment.length === 0) {
-      res.status(404).json({message: "Data recruitment masih kosong"});
+      res.status(200).json({message: "Data recruitment masih kosong", data: []});
       return;
     }
     res.status(200).json({
@@ -85,8 +85,9 @@ export const getRecruitmentByNIM = async (req: Request, res: Response) => {
       where: {nim}
     })
     if (!recruitment) {
-      res.status(404).send({
+      res.status(200).send({
         message: "Data recruitment tidak ditemukan",
+        data: null
       })
       return
     }

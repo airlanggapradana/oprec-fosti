@@ -112,7 +112,7 @@ export const getAllPresensi = async (req: Request, res: Response) => {
     const presensi = await prisma.presensi.findMany(findManyOptions);
 
     if (!presensi || presensi.length === 0) {
-      res.status(404).json({message: 'Tidak ada data presensi'});
+      res.status(200).json({message: 'Tidak ada data presensi', data: []});
       return;
     }
 
@@ -122,6 +122,7 @@ export const getAllPresensi = async (req: Request, res: Response) => {
       total: presensi.length,
       page: page
     });
+    return;
   } catch (e) {
     res.status(500).json({
       message: 'Terjadi kesalahan pada server',
