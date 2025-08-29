@@ -48,6 +48,8 @@ const FormPendaftaran = () => {
       nama: "",
       nim: "",
       email: "",
+      link_twibbon: "",
+      link_video: "",
       no_telepon: "",
       alamat: "",
       gender: "LAKI_LAKI",
@@ -273,6 +275,47 @@ const FormPendaftaran = () => {
                     <Textarea
                       placeholder="Tuliskan motivasi kamu untuk mendaftar di sini"
                       className="resize-none"
+                      {...field}
+                      disabled={isDisabled}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="link_twibbon"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Link Twibbon</FormLabel>
+                  <FormDescription>
+                    Masukin link twibbon kamu disini.
+                  </FormDescription>
+                  <FormControl>
+                    <Input
+                      placeholder={"e.g link post ig"}
+                      {...field}
+                      disabled={isDisabled}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="link_video"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Link Video</FormLabel>
+                  <FormDescription>
+                    Masukin link video kamu disini.
+                  </FormDescription>
+                  <FormControl>
+                    <Input
+                      placeholder={"e.g link vt tiktok"}
                       {...field}
                       disabled={isDisabled}
                     />

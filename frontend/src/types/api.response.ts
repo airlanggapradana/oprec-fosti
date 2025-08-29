@@ -5,6 +5,8 @@ export type CreateRecordResponse = {
     nama: string;
     email: string;
     nim: string;
+    link_twibbon: string;
+    link_video: string;
     no_telepon: string;
     gender: "LAKI_LAKI" | "PEREMPUAN";
     alamat: string;
