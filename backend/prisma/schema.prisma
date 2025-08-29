@@ -14,18 +14,20 @@ datasource db {
 }
 
 model Recruitment {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  nama       String
-  email      String    @unique
-  nim        String    @unique
-  no_telepon String
-  gender     Gender
-  alamat     String
-  motivasi   String
-  fakultas   Fakultas
-  prodi      String
-  status     Status    @default(PENDING)
-  presensi   Presensi?
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  nama         String
+  email        String    @unique
+  nim          String    @unique
+  no_telepon   String
+  gender       Gender
+  link_twibbon String
+  link_video   String
+  alamat       String
+  motivasi     String
+  fakultas     Fakultas
+  prodi        String
+  status       Status    @default(PENDING)
+  presensi     Presensi?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -8,6 +8,8 @@ export const recruitmentSchema = z.object({
     message: "Nomor telepon tidak valid.",
   }),
   gender: z.enum(["LAKI_LAKI", "PEREMPUAN"]),
+  link_twibbon: z.string().url("link twibbon tidak valid").nonempty(),
+  link_video: z.string().url("link video tidak valid").nonempty(),
   alamat: z.string().nonempty(),
   motivasi: z.string().nonempty(),
   fakultas: z.enum([
