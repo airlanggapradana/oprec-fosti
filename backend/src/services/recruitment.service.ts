@@ -29,7 +29,7 @@ export const createRecruitment = async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       res
         .status(400)
-        .json({message: "Validation failed", errors: error.errors[0]});
+        .json({message: "Validation failed", errors: error.errors});
       return;
     } else {
       res.status(500).json({message: "Internal server error"});
