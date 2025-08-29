@@ -11,6 +11,8 @@ const data = Array.from({length: 200}).map((_, i) => ({
   email: faker.internet.email(),
   nim: faker.string.numeric(10),
   no_telepon: faker.phone.number(),
+  link_twibbon: `https://example.com/twibbon/${i + 1}`,
+  link_video: `https://example.com/video/${i + 1}`,
   status: "PENDING" as Status,
   gender: faker.helpers.arrayElement(["LAKI_LAKI", "PEREMPUAN"]),
   alamat: faker.location.streetAddress(),
