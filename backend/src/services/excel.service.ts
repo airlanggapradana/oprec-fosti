@@ -29,10 +29,7 @@ export const exportAsExcel = async (req: Request, res: Response) => {
     // ========================
     // Generate headers (fixed order)
     // ========================
-    let headers = Object.keys(documents[0] || {});
-    if (exportType === "Recruitment") {
-      headers.push("Up Twibbon", "Up Video");
-    }
+    const headers = Object.keys(documents[0] || {});
     worksheet.addRow(headers);
 
     // Style header row
@@ -62,45 +59,8 @@ export const exportAsExcel = async (req: Request, res: Response) => {
         return value === null || value === undefined ? "NULL" : value;
       });
 
-      // Tambah default checkbox kalau Recruitment
-      if (exportType === "Recruitment") {
-        row[headers.indexOf("Up Twibbon")] = "☐";
-        row[headers.indexOf("Up Video")] = "☐";
-      }
-
       worksheet.addRow(row);
     });
-
-    // ========================
-    // Dropdown hanya kalau Recruitment
-    // ========================
-    if (exportType === "Recruitment") {
-      const lastColIndex = worksheet.getRow(1).cellCount;
-      const twibbonCol = lastColIndex - 1;
-      const videoCol = lastColIndex;
-
-      // Dropdown untuk Up Twibbon
-      worksheet.getColumn(twibbonCol).eachCell((cell, rowNumber) => {
-        if (rowNumber > 1) {
-          cell.dataValidation = {
-            type: "list",
-            allowBlank: true,
-            formulae: ['"☐,☑"'],
-          };
-        }
-      });
-
-      // Dropdown untuk Up Video
-      worksheet.getColumn(videoCol).eachCell((cell, rowNumber) => {
-        if (rowNumber > 1) {
-          cell.dataValidation = {
-            type: "list",
-            allowBlank: true,
-            formulae: ['"☐,☑"'],
-          };
-        }
-      });
-    }
 
     // Style data rows
     worksheet.eachRow((row, rowNumber) => {
