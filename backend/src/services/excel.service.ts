@@ -18,117 +18,122 @@ export const exportAsExcel = async (req: Request, res: Response) => {
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
 
-    // Fetch all documents from the collection
+    // Fetch all documents
     const documents = await collection.find({}).toArray();
-    console.log(`Fetched ${documents.length} documents from the collection`);
+    console.log(`Fetched ${documents.length} documents`);
 
-    // Create a new workbook and worksheet
+    // Create workbook + worksheet
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet(collectionName);
 
-    // Add headers to the worksheet
-    if (documents.length > 0) {
-      const headers = Object.keys(documents[0]);
-
-      // ✅ Tambah kolom hanya kalau Recruitment
-      if (exportType === "Recruitment") {
-        headers.push("Up Twibbon", "Up Video");
-      }
-
-      worksheet.addRow(headers);
-
-      // Style the header row
-      const headerRow = worksheet.getRow(1);
-      headerRow.eachCell((cell) => {
-        cell.font = {bold: true, color: {argb: "FFFFFFFF"}}; // Bold and white font
-        cell.fill = {
-          type: "pattern",
-          pattern: "solid",
-          fgColor: {argb: "FF4F81BD"}, // Blue background
-        };
-        cell.alignment = {vertical: "middle", horizontal: "center"}; // Center alignment
-        cell.border = {
-          top: {style: "thin", color: {argb: "FF000000"}},
-          bottom: {style: "thin", color: {argb: "FF000000"}},
-          left: {style: "thin", color: {argb: "FF000000"}},
-          right: {style: "thin", color: {argb: "FF000000"}},
-        };
-      });
+    // ========================
+    // Generate headers (fixed order)
+    // ========================
+    let headers = Object.keys(documents[0] || {});
+    if (exportType === "Recruitment") {
+      headers.push("Up Twibbon", "Up Video");
     }
+    worksheet.addRow(headers);
 
-    // Add data rows to the worksheet
+    // Style header row
+    const headerRow = worksheet.getRow(1);
+    headerRow.eachCell((cell) => {
+      cell.font = {bold: true, color: {argb: "FFFFFFFF"}};
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: {argb: "FF4F81BD"},
+      };
+      cell.alignment = {vertical: "middle", horizontal: "center"};
+      cell.border = {
+        top: {style: "thin", color: {argb: "FF000000"}},
+        bottom: {style: "thin", color: {argb: "FF000000"}},
+        left: {style: "thin", color: {argb: "FF000000"}},
+        right: {style: "thin", color: {argb: "FF000000"}},
+      };
+    });
+
+    // ========================
+    // Add data rows (using headers order)
+    // ========================
     documents.forEach((doc) => {
-      const row = Object.keys(doc).map((key) => {
-        const value = doc[key];
+      const row = headers.map((key) => {
+        const value = doc[key as keyof typeof doc];
         return value === null || value === undefined ? "NULL" : value;
       });
 
-      // ✅ Tambah default checkbox hanya kalau Recruitment
+      // Tambah default checkbox kalau Recruitment
       if (exportType === "Recruitment") {
-        row.push("☐", "☐");
+        row[headers.indexOf("Up Twibbon")] = "☐";
+        row[headers.indexOf("Up Video")] = "☐";
       }
 
       worksheet.addRow(row);
+    });
 
-      // === Kasih data validation dropdown hanya kalau Recruitment ===
-      if (exportType === "Recruitment") {
-        const lastColIndex = worksheet.getRow(1).cellCount;
-        const twibbonCol = lastColIndex - 1;
-        const videoCol = lastColIndex;
+    // ========================
+    // Dropdown hanya kalau Recruitment
+    // ========================
+    if (exportType === "Recruitment") {
+      const lastColIndex = worksheet.getRow(1).cellCount;
+      const twibbonCol = lastColIndex - 1;
+      const videoCol = lastColIndex;
 
-        // Dropdown + style untuk "Up Twibbon"
-        worksheet.getColumn(twibbonCol).eachCell((cell, rowNumber) => {
-          if (rowNumber > 1) {
-            cell.dataValidation = {
-              type: "list",
-              allowBlank: true,
-              formulae: ['"☐,☑"'],
-            };
-          }
-        });
+      // Dropdown untuk Up Twibbon
+      worksheet.getColumn(twibbonCol).eachCell((cell, rowNumber) => {
+        if (rowNumber > 1) {
+          cell.dataValidation = {
+            type: "list",
+            allowBlank: true,
+            formulae: ['"☐,☑"'],
+          };
+        }
+      });
 
-        // Dropdown + style untuk "Up Video"
-        worksheet.getColumn(videoCol).eachCell((cell, rowNumber) => {
-          if (rowNumber > 1) {
-            cell.dataValidation = {
-              type: "list",
-              allowBlank: true,
-              formulae: ['"☐,☑"'],
-            };
-          }
+      // Dropdown untuk Up Video
+      worksheet.getColumn(videoCol).eachCell((cell, rowNumber) => {
+        if (rowNumber > 1) {
+          cell.dataValidation = {
+            type: "list",
+            allowBlank: true,
+            formulae: ['"☐,☑"'],
+          };
+        }
+      });
+    }
+
+    // Style data rows
+    worksheet.eachRow((row, rowNumber) => {
+      if (rowNumber > 1) {
+        row.eachCell((cell) => {
+          cell.border = {
+            top: {style: "thin", color: {argb: "FF000000"}},
+            bottom: {style: "thin", color: {argb: "FF000000"}},
+            left: {style: "thin", color: {argb: "FF000000"}},
+            right: {style: "thin", color: {argb: "FF000000"}},
+          };
+          cell.alignment = {vertical: "middle", horizontal: "center"};
         });
       }
-
-      // Style the data rows
-      const dataRow = worksheet.getRow(worksheet.rowCount);
-      dataRow.eachCell((cell) => {
-        cell.border = {
-          top: {style: "thin", color: {argb: "FF000000"}},
-          bottom: {style: "thin", color: {argb: "FF000000"}},
-          left: {style: "thin", color: {argb: "FF000000"}},
-          right: {style: "thin", color: {argb: "FF000000"}},
-        };
-        cell.alignment = {vertical: "middle", horizontal: "center"};
-      });
     });
 
-    // Adjust column widths
-    worksheet.columns.forEach((column) => {
-      column.width = 20; // Set a fixed width for all columns
+    // Set fixed width for all columns
+    worksheet.columns.forEach((col) => {
+      col.width = 20;
     });
 
-    // Write the workbook to a buffer
+    // Buffer & response
     const buffer = await workbook.xlsx.writeBuffer();
-
-    // Set response headers for file download
-    res.setHeader("Content-Disposition", "attachment; filename=export.xlsx");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=${collectionName}.xlsx`
+    );
     res.setHeader(
       "Content-Type",
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     );
-
-    // Send the buffer as the response
     res.send(buffer);
+
     console.log("Excel file sent to client");
   } catch (error) {
     console.error("Error exporting collection:", error);
