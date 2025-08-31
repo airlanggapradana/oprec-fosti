@@ -36,7 +36,7 @@ import { createRecord, sendEmail } from "@/utils/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-const DISABLE_AFTER = new Date("2025-08-31T16:59:59+07:00"); // set your target datetime (WIB, UTC+7)
+const DISABLE_AFTER = new Date("2025-08-31T23:59:59+07:00"); // set your target datetime (WIB, UTC+7)
 
 const FormPendaftaran = () => {
   const [isDisabled, setIsDisabled] = useState(false);
