@@ -36,10 +36,6 @@ import { createRecord, sendEmail } from "@/utils/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-// Atur tanggal mulai & berakhir
-const startDate = new Date("2025-09-03T00:00:00+07:00"); // tanggal mulai
-const endDate = new Date("2025-09-11T23:59:59+07:00"); // tanggal berakhir
-
 const FormPendaftaran = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const queryClient = useQueryClient();
@@ -91,6 +87,9 @@ const FormPendaftaran = () => {
       );
     },
   });
+  // Atur tanggal mulai & berakhir
+  const startDate = new Date("2025-09-03T00:00:00+07:00"); // tanggal mulai
+  const endDate = new Date("2025-09-11T23:59:59+07:00"); // tanggal berakhir
 
   useEffect(() => {
     const checkDisabled = () => {
@@ -100,7 +99,7 @@ const FormPendaftaran = () => {
     checkDisabled();
     const interval = setInterval(checkDisabled, 60 * 1000); // check every minute
     return () => clearInterval(interval);
-  }, []);
+  }, [startDate, endDate]);
 
   const onSubmit: SubmitHandler<RecruitmentSchema> = async (data) => {
     await mutateAsync(data);
