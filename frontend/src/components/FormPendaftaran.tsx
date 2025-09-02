@@ -37,8 +37,8 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 // Atur tanggal mulai & berakhir
-const startDate = new Date("2025-09-03T00:00:00"); // tanggal mulai
-const endDate = new Date("2025-09-11T23:59:59"); // tanggal berakhir
+const startDate = new Date("2025-09-03T00:00:00+07:00"); // tanggal mulai
+const endDate = new Date("2025-09-11T23:59:59+07:00"); // tanggal berakhir
 
 const FormPendaftaran = () => {
   const [isDisabled, setIsDisabled] = useState(false);
