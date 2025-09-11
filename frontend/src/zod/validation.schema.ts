@@ -6,7 +6,7 @@ export const recruitmentSchema = z.object({
   email: z.string().email("email tidak valid").nonempty(),
   no_telepon: z
     .string()
-    .max(13)
+    .max(20)
     .regex(/^(\+62|62|0)8[1-9][0-9]{6,9}$/, {
       message: "Nomor telepon tidak valid.",
     }),
