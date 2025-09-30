@@ -52,7 +52,7 @@ const CheckPendaftaranPage = () => {
 
   const onSubmit: SubmitHandler<CheckRegistrationSchema> = async (data) => {
     try {
-      const res = await handleCheckRegistration(data.nim);
+      const res = await handleCheckRegistration(data.nim.toUpperCase());
       setCandidateResult(res);
       setIsDialogOpen(true);
     } catch (e) {
