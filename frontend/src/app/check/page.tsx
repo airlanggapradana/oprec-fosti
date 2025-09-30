@@ -33,6 +33,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCheckRegistration } from "@/utils/query";
 import { Recruitment } from "@/types/checkRecruitmentStatus.type";
+import { FaWhatsapp } from "react-icons/fa6";
 
 const CheckPendaftaranPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -150,10 +151,20 @@ const CheckPendaftaranPage = () => {
                   <p className="font-semibold text-green-800 dark:text-green-200">
                     🎉 Selamat! Anda DITERIMA
                   </p>
-                  <p className="mt-1 text-sm text-green-700 dark:text-green-300">
-                    Silakan tunggu informasi lebih lanjut melalui email atau
-                    telepon dari tim HR kami.
+                  <p className="mb-5 mt-1 text-sm text-green-700 dark:text-green-300">
+                    Silakan join ke grub whatsapp angkatan 25 di bawah ini yak.
                   </p>
+                  <Button
+                    onClick={() =>
+                      window.open(
+                        "https://chat.whatsapp.com/Bm3SwAiA8tp3LpA3zuh2GT?mode=ems_copy_t",
+                        "_blank",
+                      )
+                    }
+                  >
+                    <FaWhatsapp />
+                    Join Grub WhatsApp
+                  </Button>
                 </div>
               ) : (
                 <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/20">
